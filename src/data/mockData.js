@@ -196,7 +196,11 @@ export const TRANSACTIONS = [
 export const MATCH_HISTORY = [
   { id: 1, opponent: "Lê Minh", result: "WIN", score: "21-18, 21-15", date: "Hôm qua", location: "Sân Đào Duy Anh" },
   { id: 2, opponent: "Trần Hùng", result: "LOSS", score: "19-21, 21-17, 18-21", date: "15/04/2026", location: "Sân Kỳ Hòa" },
-  { id: 3, opponent: "Phạm Tuyết", result: "WIN", score: "21-10, 21-12", date: "12/04/2026", location: "Sân Hiển Hoa" }
+  { id: 3, opponent: "Phạm Tuyết", result: "WIN", score: "21-10, 21-12", date: "12/04/2026", location: "Sân Hiển Hoa" },
+  { id: 4, opponent: "Hoàng Nam", result: "WIN", score: "21-15, 21-12", date: "10/04/2026", location: "Sân T793" },
+  { id: 5, opponent: "Bảo Ngọc", result: "LOSS", score: "22-24, 19-21", date: "08/04/2026", location: "Sân Lê Văn Tám" },
+  { id: 6, opponent: "Quốc Anh", result: "WIN", score: "21-9, 21-14", date: "05/04/2026", location: "Sân Thủ Đức" },
+  { id: 7, opponent: "Thanh Trúc", result: "WIN", score: "21-18, 17-21, 21-19", date: "01/04/2026", location: "Sân Đất Thành" }
 ];
 
 export const ACHIEVEMENTS = [
