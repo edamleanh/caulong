@@ -100,8 +100,8 @@ const Courts = ({ onBookCourt }) => {
           style={{ width: '100%', height: '100%' }}
         >
           <TileLayer
-            attribution='&copy; CARTO'
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; OpenStreetMap &copy; CARTO'
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
           
           <MapHandler center={selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null} />
