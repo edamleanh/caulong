@@ -6,6 +6,7 @@ import BookingDetail from './components/BookingDetail';
 import { MatchHistory, Achievements, SettingsPage } from './components/ProfileSubScreens';
 import MatchDetail from './components/MatchDetail';
 import CreateMatchModal from './components/CreateMatchModal';
+import MatchCard from './components/MatchCard';
 
 // Notification/Toast Component
 const Toast = ({ message, type = 'success', onClose }) => {
@@ -170,39 +171,13 @@ const Matchmaking = ({ matches, onJoin, onSelect, onCreateClick, joinedIds }) =>
     </div>
 
     {matches.map(match => (
-      <div key={match.id} className="glass-card match-card" onClick={() => onSelect(match)}>
-        <div className="match-header">
-          <div>
-            <h3>{match.title}</h3>
-            <p className="muted">{match.organizer}</p>
-          </div>
-          <div className="level-badge">{match.level}</div>
-        </div>
-        <div className="match-details">
-          <div className="detail-item">
-            <Calendar size={16} color="#c3ff00" />
-            <span>{match.date}</span>
-          </div>
-          <div className="detail-item">
-            <Clock size={16} color="#c3ff00" />
-            <span>{match.time}</span>
-          </div>
-          <div className="detail-item">
-            <UserIcon size={16} color="#c3ff00" />
-            <span>{joinedIds.includes(match.id) ? 4 : match.slots.split('/')[0]} / {match.slots.split('/')[1]} chỗ</span>
-          </div>
-        </div>
-        <div className="match-footer">
-          <span className="price">{match.price}</span>
-          <button 
-            className={`btn-primary ${joinedIds.includes(match.id) ? 'negative' : ''}`}
-            onClick={(e) => { e.stopPropagation(); onJoin(match); }}
-            style={{ background: joinedIds.includes(match.id) ? '#ff4444' : 'var(--primary)', color: joinedIds.includes(match.id) ? 'white' : 'black' }}
-          >
-            {joinedIds.includes(match.id) ? 'Rút lui' : 'Tham gia'}
-          </button>
-        </div>
-      </div>
+      <MatchCard 
+        key={match.id}
+        match={match}
+        onJoin={onJoin}
+        onSelect={onSelect}
+        isJoined={joinedIds.includes(match.id)}
+      />
     ))}
   </div>
 );
