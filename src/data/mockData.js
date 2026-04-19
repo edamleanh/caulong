@@ -6,7 +6,7 @@ export const COURTS = [
     distance: "1.2 km",
     rating: 4.8,
     price: "80k - 120k",
-    image: "https://images.unsplash.com/photo-1626225967633-596956277d01?auto=format&fit=crop&q=80&w=400",
+    image: "/images/court1.jpg",
     tags: ["Máy lạnh", "Gần trung tâm", "Sân thảm"],
     x: 25,
     y: 35
@@ -18,7 +18,7 @@ export const COURTS = [
     distance: "5.5 km",
     rating: 4.5,
     price: "60k - 90k",
-    image: "https://images.unsplash.com/photo-1599474924187-334a4ae5bd3c?auto=format&fit=crop&q=80&w=400",
+    image: "/images/court2.jpg",
     tags: ["Giá rẻ", "Thoáng mát", "Có bãi đỗ xe"],
     x: 65,
     y: 25
@@ -30,7 +30,7 @@ export const COURTS = [
     distance: "2.8 km",
     rating: 4.9,
     price: "100k - 150k",
-    image: "https://images.unsplash.com/photo-1614704372990-28e6783d47c2?auto=format&fit=crop&q=80&w=400",
+    image: "/images/court3.jpg",
     tags: ["Sân chuẩn thi đấu", "Ánh sáng tốt"],
     x: 50,
     y: 55
@@ -42,7 +42,7 @@ export const COURTS = [
     distance: "4.1 km",
     rating: 4.3,
     price: "70k - 110k",
-    image: "https://images.unsplash.com/photo-1599474924187-334a4ae5bd3c?auto=format&fit=crop&q=80&w=400",
+    image: "/images/court2.jpg",
     tags: ["Giá rẻ", "Sân thảm"],
     x: 75,
     y: 70
@@ -54,7 +54,7 @@ export const COURTS = [
     distance: "3.5 km",
     rating: 4.6,
     price: "85k - 130k",
-    image: "https://images.unsplash.com/photo-1626225967633-596956277d01?auto=format&fit=crop&q=80&w=400",
+    image: "/images/court1.jpg",
     tags: ["Mới khai trương", "Dịch vụ tốt"],
     x: 40,
     y: 20
@@ -66,7 +66,7 @@ export const COURTS = [
     distance: "8.2 km",
     rating: 4.2,
     price: "50k - 80k",
-    image: "https://plus.unsplash.com/premium_photo-1676643640051-bd1285bd5e9a?auto=format&fit=crop&q=80&w=400",
+    image: "/images/court6.jpg",
     tags: ["Sinh viên", "Giá rẻ"],
     x: 85,
     y: 15
@@ -78,7 +78,7 @@ export const COURTS = [
     distance: "0.8 km",
     rating: 4.7,
     price: "120k - 180k",
-    image: "https://images.unsplash.com/photo-1614704373404-585ee5851457?auto=format&fit=crop&q=80&w=400",
+    image: "/images/court7.jpg",
     tags: ["Đẳng cấp", "Sân thảm"],
     x: 48,
     y: 42
