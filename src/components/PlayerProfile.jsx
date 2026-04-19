@@ -81,7 +81,7 @@ const PlayerProfile = ({ player, onBack }) => {
             </div>
           </div>
           <div>
-            <p className="muted" style={{ fontSize: '0.7rem', marginBottom: '4px' }}>Kiếm hiệp</p>
+            <p className="muted" style={{ fontSize: '0.7rem', marginBottom: '4px' }}>Vợt yêu thích</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <Rocket size={16} color="var(--primary)" />
               <span style={{ fontWeight: 'bold', fontSize: '0.8rem' }}>{player.gear}</span>
