@@ -52,6 +52,11 @@ const Courts = ({ onBookCourt }) => {
   const [filterDistrict, setFilterDistrict] = useState('ALL');
   const [selectedCourt, setSelectedCourt] = useState(COURTS[0]);
 
+  // Panning State
+  const [mapPosition, setMapPosition] = useState({ x: -800, y: -800 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+
   const districts = ['ALL', 'QUẬN 1', 'BÌNH THẠNH', 'QUẬN 7', 'THỦ ĐỨC'];
 
   const normalize = (str) => {
@@ -68,16 +73,42 @@ const Courts = ({ onBookCourt }) => {
     return matchesSearch && matchesDistrict;
   });
 
+  const handlePointerDown = (e) => {
+    setIsDragging(true);
+    setStartPos({ x: e.clientX - mapPosition.x, y: e.clientY - mapPosition.y });
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging) return;
+    
+    let newX = e.clientX - startPos.x;
+    let newY = e.clientY - startPos.y;
+
+    // Boundary constraints (Map is 2000x2000, Viewport is roughly 400x800)
+    newX = Math.min(0, Math.max(newX, -1600));
+    newY = Math.min(0, Math.max(newY, -1200));
+
+    setMapPosition({ x: newX, y: newY });
+  };
+
+  const handlePointerUp = () => {
+    setIsDragging(false);
+  };
+
   return (
-    <div className="courts-screen">
-      <div className="map-container">
+    <div className="courts-screen" onPointerMove={handlePointerMove} onPointerUp={handlePointerUp}>
+      <div 
+        className={`map-container ${isDragging ? 'dragging' : ''}`}
+        style={{ transform: `translate(${mapPosition.x}px, ${mapPosition.y}px)` }}
+        onPointerDown={handlePointerDown}
+      >
         <div className="map-lines"></div>
         {filteredCourts.map(court => (
           <div 
             key={court.id} 
             className={`marker ${selectedCourt?.id === court.id ? 'active' : ''}`}
             style={{ left: `${court.x}%`, top: `${court.y}%` }}
-            onClick={() => setSelectedCourt(court)}
+            onClick={(e) => { e.stopPropagation(); setSelectedCourt(court); }}
           >
              <MapPin size={selectedCourt?.id === court.id ? 24 : 18} color="white" fill={selectedCourt?.id === court.id ? "black" : "transparent"} />
           </div>
