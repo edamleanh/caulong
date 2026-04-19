@@ -65,10 +65,10 @@ const Courts = ({ onBookCourt }) => {
   console.log("Courts data:", COURTS);
   console.log("Leaflet object L:", L);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterDistrict, setFilterDistrict] = useState('ALL');
+  const [filterDistrict, setFilterDistrict] = useState('Tất cả');
   const [selectedCourt, setSelectedCourt] = useState(COURTS[0]);
 
-  const districts = ['ALL', 'QUẬN 1', 'BÌNH THẠNH', 'QUẬN 7', 'THỦ ĐỨC'];
+  const districts = ['Tất cả', 'Quận 1', 'Quận 2', 'Quận 7', 'Quận 10', 'Bình Thạnh', 'Phú Nhuận'];
 
   const normalize = (str) => {
     if (!str) return "";
@@ -79,8 +79,14 @@ const Courts = ({ onBookCourt }) => {
   };
 
   const filteredCourts = COURTS.filter(court => {
-    const matchesSearch = normalize(court.name).includes(normalize(searchQuery));
-    const matchesDistrict = filterDistrict === 'ALL' || court.location.toUpperCase().includes(filterDistrict);
+    const normSearch = normalize(searchQuery);
+    const normLocation = normalize(court.location);
+    const normDistrict = normalize(filterDistrict);
+    const normName = normalize(court.name);
+
+    const matchesSearch = normName.includes(normSearch) || normLocation.includes(normSearch);
+    const matchesDistrict = filterDistrict === 'Tất cả' || normLocation.includes(normDistrict);
+    
     return matchesSearch && matchesDistrict;
   });
 
