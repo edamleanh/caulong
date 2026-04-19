@@ -723,6 +723,7 @@ h1, h2, h3 {
   margin-top: auto;
   margin-bottom: 90px;
   width: 100%;
+  padding: 0 20px; /* Shrink width visually */
 }
 
 .floating-court-card {
@@ -740,7 +741,7 @@ h1, h2, h3 {
 
 .floating-img {
   width: 100%;
-  height: 160px;
+  height: 120px; /* Reduced from 160px */
   object-fit: cover;
 }
 
@@ -787,7 +788,7 @@ h1, h2, h3 {
 .court-price-val {
   color: var(--primary);
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 1rem; /* Reduced from 1.2rem */
 }
 
 .court-price-label {
