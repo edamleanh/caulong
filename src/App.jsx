@@ -4,6 +4,8 @@ import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock
 import { COURTS, MATCHES, USER_STATS, TRANSACTIONS } from './data/mockData';
 import BookingDetail from './components/BookingDetail';
 import { MatchHistory, Achievements, SettingsPage } from './components/ProfileSubScreens';
+import MatchDetail from './components/MatchDetail';
+import CreateMatchModal from './components/CreateMatchModal';
 
 // Notification/Toast Component
 const Toast = ({ message, type = 'success', onClose }) => {
@@ -154,17 +156,21 @@ const Courts = ({ onBookCourt }) => {
   );
 };
 
-const Matchmaking = ({ onJoin }) => (
+const Matchmaking = ({ matches, onJoin, onSelect, onCreateClick, joinedIds }) => (
   <div className="screen-content">
-    <h1 className="neon-text">Tìm đối thủ</h1>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <h1 className="neon-text">Tìm đối thủ</h1>
+      <button className="icon-btn-neon" onClick={onCreateClick}><Plus size={24} /></button>
+    </div>
+    
     <div className="filter-chips">
       <span className="chip active">Hôm nay</span>
       <span className="chip">Ngày mai</span>
       <span className="chip">Tuần này</span>
     </div>
 
-    {MATCHES.map(match => (
-      <div key={match.id} className="glass-card match-card">
+    {matches.map(match => (
+      <div key={match.id} className="glass-card match-card" onClick={() => onSelect(match)}>
         <div className="match-header">
           <div>
             <h3>{match.title}</h3>
@@ -183,12 +189,18 @@ const Matchmaking = ({ onJoin }) => (
           </div>
           <div className="detail-item">
             <UserIcon size={16} color="#c3ff00" />
-            <span>{match.slots} chỗtrống</span>
+            <span>{joinedIds.includes(match.id) ? 4 : match.slots.split('/')[0]} / {match.slots.split('/')[1]} chỗ</span>
           </div>
         </div>
         <div className="match-footer">
           <span className="price">{match.price}</span>
-          <button className="btn-primary" onClick={() => onJoin(match.title)}>Tham gia</button>
+          <button 
+            className={`btn-primary ${joinedIds.includes(match.id) ? 'negative' : ''}`}
+            onClick={(e) => { e.stopPropagation(); onJoin(match); }}
+            style={{ background: joinedIds.includes(match.id) ? '#ff4444' : 'var(--primary)', color: joinedIds.includes(match.id) ? 'white' : 'black' }}
+          >
+            {joinedIds.includes(match.id) ? 'Rút lui' : 'Tham gia'}
+          </button>
         </div>
       </div>
     ))}
@@ -300,6 +312,10 @@ function App() {
   const [activeTab, setActiveTab] = useState('courts');
   const [bookingCourt, setBookingCourt] = useState(null);
   const [profileSubScreen, setProfileSubScreen] = useState(null);
+  const [activeMatchDetail, setActiveMatchDetail] = useState(null);
+  const [showCreateMatch, setShowCreateMatch] = useState(false);
+  const [matchesList, setMatchesList] = useState(MATCHES);
+  const [joinedMatches, setJoinedMatches] = useState([]);
   const [balance, setBalance] = useState(450000);
   const [transactions, setTransactions] = useState(TRANSACTIONS);
   const [toast, setToast] = useState(null);
@@ -337,6 +353,22 @@ function App() {
     setToast("Đặt sân thành công!");
   };
 
+  const handleJoinMatch = (match) => {
+    if (joinedMatches.includes(match.id)) {
+      setJoinedMatches(prev => prev.filter(id => id !== match.id));
+      setToast(`Đã rút lui khỏi: ${match.title}`);
+    } else {
+      setJoinedMatches(prev => [...prev, match.id]);
+      setToast(`Đã tham gia: ${match.title}`);
+    }
+  };
+
+  const handleCreateMatch = (newMatch) => {
+    setMatchesList(prev => [newMatch, ...prev]);
+    setShowCreateMatch(false);
+    setToast("Đã đăng trận đấu mới!");
+  };
+
   const renderScreen = () => {
     if (bookingCourt) {
       return (
@@ -348,24 +380,54 @@ function App() {
       );
     }
 
+    if (activeMatchDetail) {
+      return (
+        <MatchDetail 
+          match={activeMatchDetail} 
+          onBack={() => setActiveMatchDetail(null)} 
+          onJoin={handleJoinMatch}
+          isJoined={joinedMatches.includes(activeMatchDetail.id)}
+        />
+      );
+    }
+
+    if (showCreateMatch) {
+      return (
+        <CreateMatchModal 
+          onBack={() => setShowCreateMatch(false)}
+          onCreate={handleCreateMatch}
+        />
+      );
+    }
+
     if (profileSubScreen === 'Lịch sử thi đấu') return <MatchHistory onBack={() => setProfileSubScreen(null)} />;
     if (profileSubScreen === 'Thành tích') return <Achievements onBack={() => setProfileSubScreen(null)} />;
     if (profileSubScreen === 'Cài đặt') return <SettingsPage onBack={() => setProfileSubScreen(null)} />;
 
     switch(activeTab) {
       case 'courts': return <Courts onBookCourt={setBookingCourt} />;
-      case 'community': return <Matchmaking onJoin={(title) => setToast(`Đã tham gia: ${title}`)} />;
+      case 'community': return (
+        <Matchmaking 
+          matches={matchesList} 
+          onJoin={handleJoinMatch} 
+          onSelect={setActiveMatchDetail}
+          onCreateClick={() => setShowCreateMatch(true)}
+          joinedIds={joinedMatches}
+        />
+      );
       case 'bookings': return <GroupWallet balance={balance} transactions={transactions} onDeposit={handleDeposit} />;
       case 'profile': return <Profile onMenuClick={setProfileSubScreen} />;
       default: return <Courts onBookCourt={setBookingCourt} />;
     }
   };
 
+  const showBottomNav = !bookingCourt && !profileSubScreen && !activeMatchDetail && !showCreateMatch;
+
   return (
     <div className="app-container">
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
       {renderScreen()}
-      {!bookingCourt && !profileSubScreen && <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />}
+      {showBottomNav && <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />}
     </div>
   );
 }
