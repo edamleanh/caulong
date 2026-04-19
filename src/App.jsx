@@ -371,11 +371,15 @@ function App() {
 
   const renderScreen = () => {
     if (bookingCourt) {
+      const relatedMatches = matchesList.filter(m => m.courtId === bookingCourt.id);
       return (
         <BookingDetail 
           court={bookingCourt} 
+          relatedMatches={relatedMatches}
           onBack={() => setBookingCourt(null)} 
           onConfirm={handleConfirmBooking}
+          onJoinMatch={handleJoinMatch}
+          joinedIds={joinedMatches}
         />
       );
     }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Clock, ChevronLeft, Calendar as CalendarIcon, CheckCircle } from 'lucide-react';
 
-const BookingDetail = ({ court, onBack, onConfirm }) => {
+const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, joinedIds }) => {
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [bookingScale, setBookingScale] = useState(1); // To simulate "Loading"
 
@@ -78,6 +78,33 @@ const BookingDetail = ({ court, onBack, onConfirm }) => {
             </div>
           ))}
         </div>
+
+        {relatedMatches && relatedMatches.length > 0 && (
+          <>
+            <div className="section-title mt-20">
+              <h3>Kèo đấu tại sân này</h3>
+            </div>
+            <div className="related-matches-list" style={{ marginBottom: '80px' }}>
+              {relatedMatches.map(match => (
+                <div key={match.id} className="glass-card" style={{ marginBottom: '12px', padding: '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                      <h4 style={{ margin: 0 }}>{match.title}</h4>
+                      <p className="muted" style={{ fontSize: '0.7rem', marginTop: '2px' }}>{match.time} • {match.level}</p>
+                    </div>
+                    <button 
+                      className={`btn-primary ${joinedIds.includes(match.id) ? 'negative' : ''}`}
+                      style={{ padding: '8px 15px', fontSize: '0.7rem', background: joinedIds.includes(match.id) ? '#ff4444' : 'var(--primary)', color: joinedIds.includes(match.id) ? 'white' : 'black' }}
+                      onClick={() => onJoinMatch(match)}
+                    >
+                      {joinedIds.includes(match.id) ? 'Rút lui' : 'Tham gia'}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Footer Checkout */}

@@ -88,6 +88,7 @@ export const COURTS = [
 export const MATCHES = [
   {
     id: 1,
+    courtId: 1,
     title: "Giao lưu vui vẻ - Sân Đào Duy Anh",
     level: "Intermediate",
     time: "19:00 - 21:00",
@@ -98,6 +99,7 @@ export const MATCHES = [
   },
   {
     id: 2,
+    courtId: 2,
     title: "Tìm đồng đội luyện tập - Hiển Hoa",
     level: "Beginner",
     time: "17:00 - 19:00",
@@ -105,6 +107,17 @@ export const MATCHES = [
     slots: "2/4",
     organizer: "Minh Anh",
     price: "35k/người"
+  },
+  {
+    id: 8,
+    courtId: 1,
+    title: "Kèo Pro - Sân Đào Duy Anh",
+    level: "Pro",
+    time: "18:00 - 20:00",
+    date: "Hôm nay",
+    slots: "1/4",
+    organizer: "Trung Kiên",
+    price: "60k/người"
   }
 ];
 
