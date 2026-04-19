@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Trophy, Medal, Settings, MatchHistory as HistoryIcon, Bell, Shield, LogOut } from 'lucide-react';
+import { ChevronLeft, Trophy, Medal, Settings, History as HistoryIcon, Bell, Shield, LogOut } from 'lucide-react';
 import { MATCH_HISTORY, ACHIEVEMENTS } from '../data/mockData';
 
 const MatchHistory = ({ onBack }) => (
