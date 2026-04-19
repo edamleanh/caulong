@@ -182,24 +182,22 @@ const Courts = ({ onBookCourt }) => {
             <div className="floating-court-card">
               <div className="img-container">
                 <img src={selectedCourt.image} className="floating-img" alt="court" />
+                <div className="img-overlay-bottom">
+                  <h3 style={{ margin: 0, color: 'white', fontSize: '1rem' }}>{selectedCourt.name}</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.65rem', margin: '2px 0 0' }}>{selectedCourt.location}</p>
+                </div>
                 <div className="badge-pop">PHỔ BIỂN</div>
                 <div className="rating-overlay">
-                   <Star size={12} fill="#c3ff00" color="#c3ff00" />
-                   <span>{selectedCourt.rating} (120+)</span>
+                   <Star size={10} fill="#c3ff00" color="#c3ff00" />
+                   <span>{selectedCourt.rating}</span>
                 </div>
               </div>
-              <div className="court-details-row">
-                <div className="court-title-row">
-                  <div>
-                    <h3 style={{ margin: 0 }}>{selectedCourt.name}</h3>
-                    <p className="muted" style={{ fontSize: '0.7rem', margin: '4px 0 0' }}>{selectedCourt.location.toUpperCase()} • {selectedCourt.distance}</p>
-                  </div>
-                  <div className="court-price-col">
-                    <div className="court-price-val">{selectedCourt.price}</div>
-                    <div className="court-price-label">MỖI GIỜ</div>
-                  </div>
+              <div className="court-compact-footer">
+                <div className="price-tag">
+                  <span className="val">{selectedCourt.price}</span>
+                  <span className="lbl">/H</span>
                 </div>
-                <button className="btn-full-neon" onClick={() => onBookCourt(selectedCourt)}>ĐẶT SÂN NGAY</button>
+                <button className="btn-slim-neon" onClick={() => onBookCourt(selectedCourt)}>ĐẶT SÂN</button>
               </div>
             </div>
           </div>
