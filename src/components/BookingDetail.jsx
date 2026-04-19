@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MatchCard from './MatchCard';
 import { X, Clock, ChevronLeft, Calendar as CalendarIcon, CheckCircle } from 'lucide-react';
 
-const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, joinedIds }) => {
+const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, onSelectMatch, joinedIds }) => {
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [bookingScale, setBookingScale] = useState(1); // To simulate "Loading"
 
@@ -92,6 +92,7 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
                   key={match.id}
                   match={match}
                   onJoin={onJoinMatch}
+                  onSelect={onSelectMatch}
                   isJoined={joinedIds.includes(match.id)}
                 />
               ))}

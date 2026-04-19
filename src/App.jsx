@@ -354,6 +354,7 @@ function App() {
           onBack={() => setBookingCourt(null)} 
           onConfirm={handleConfirmBooking}
           onJoinMatch={handleJoinMatch}
+          onSelectMatch={setActiveMatchDetail}
           joinedIds={joinedMatches}
         />
       );
