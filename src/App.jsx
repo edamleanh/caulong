@@ -51,11 +51,18 @@ const BottomNav = ({ activeTab, setActiveTab }) => {
 
 
 // Helper component to handle map movement
-const MapHandler = ({ center, zoom = 15 }) => {
+const MapHandler = ({ center, zoom = 15, bounds = null }) => {
   const map = useMap();
+  const centerKey = center ? center.join(',') : '';
+  const boundsKey = bounds ? JSON.stringify(bounds) : '';
+
   useEffect(() => {
-    if (center) map.flyTo(center, zoom, { duration: 1.5 });
-  }, [center, zoom, map]);
+    if (bounds && bounds.length > 0) {
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15, duration: 1.5 });
+    } else if (center) {
+      map.flyTo(center, zoom, { duration: 1.5 });
+    }
+  }, [centerKey, boundsKey, zoom, map]);
   return null;
 };
 
@@ -86,6 +93,14 @@ const Courts = ({ onBookCourt }) => {
     return matchesSearch && matchesDistrict;
   });
 
+  // Calculate bounds for the current filter
+  const currentBounds = useMemo(() => {
+    if (filteredCourts.length > 0) {
+      return filteredCourts.map(c => [c.lat, c.lng]);
+    }
+    return null;
+  }, [filteredCourts]);
+
   // Smart Selection: When filter results change, auto-select the first match
   useEffect(() => {
     if (filteredCourts.length > 0) {
@@ -98,11 +113,11 @@ const Courts = ({ onBookCourt }) => {
   }, [filterDistrict, searchQuery]);
 
   // Custom Icon Logic (Neon Circle with Pin)
-  const createCustomIcon = (isActive, id) => {
+  const createCustomIcon = (isActive, isVisible) => {
     return L.divIcon({
       className: 'custom-marker',
       html: `
-        <div class="marker-container ${isActive ? 'active' : ''}">
+        <div class="marker-container ${isActive ? 'active' : ''} ${!isVisible ? 'dimmed' : ''}">
           <div class="marker-inner">
             <svg viewBox="0 0 24 24" width="${isActive ? 20 : 14}" height="${isActive ? 20 : 14}" stroke="currentColor" stroke-width="2" fill="${isActive ? 'black' : 'none'}" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -132,21 +147,25 @@ const Courts = ({ onBookCourt }) => {
           />
           
           <MapHandler 
-            center={(filterDistrict === 'Tất cả' && !searchQuery) ? [10.7841, 106.6912] : (selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null)} 
-            zoom={(filterDistrict === 'Tất cả' && !searchQuery) ? 13 : 15}
+            center={(!filterDistrict || filterDistrict === 'Tất cả') && !searchQuery ? null : (selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null)}
+            bounds={currentBounds}
           />
 
-          {/* Smart Marker Rendering: Only show filtered results with stable keys */}
-          {filteredCourts.map(court => (
-            <Marker 
-              key={court.id} 
-              position={[court.lat, court.lng]}
-              icon={createCustomIcon(selectedCourt?.id === court.id, court.id)}
-              eventHandlers={{
-                click: () => setSelectedCourt(court)
-              }}
-            />
-          ))}
+          {/* Render ALL courts, use opacity/classes for filtering */}
+          {COURTS.map(court => {
+            const isVisible = filteredCourts.some(fc => fc.id === court.id);
+            const isActive = selectedCourt?.id === court.id;
+            return (
+              <Marker 
+                key={court.id} 
+                position={[court.lat, court.lng]}
+                icon={createCustomIcon(isActive, isVisible)}
+                eventHandlers={{
+                  click: () => setSelectedCourt(court)
+                }}
+              />
+            );
+          })}
         </MapContainer>
       </div>
 
