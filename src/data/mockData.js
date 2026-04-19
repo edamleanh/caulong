@@ -109,6 +109,61 @@ export const MATCHES = [
     price: "35k/người"
   },
   {
+    id: 3,
+    courtId: 3,
+    title: "Kèo phủi sáng sớm - Kỳ Hòa",
+    level: "Intermediate",
+    time: "06:00 - 08:00",
+    date: "Ngày mai",
+    slots: "1/4",
+    organizer: "Bảo Ngọc",
+    price: "40k/người"
+  },
+  {
+    id: 4,
+    courtId: 4,
+    title: "Giao lưu Pro - Quận 7",
+    level: "Pro",
+    time: "20:00 - 22:00",
+    date: "Hôm nay",
+    slots: "2/4",
+    organizer: "Hoàng Long",
+    price: "60k/người"
+  },
+  {
+    id: 5,
+    courtId: 5,
+    title: "Kèo trưa vui vẻ - Đất Thành",
+    level: "Beginner",
+    time: "12:00 - 14:00",
+    date: "Chủ nhật",
+    slots: "3/4",
+    organizer: "Khánh Huyền",
+    price: "30k/người"
+  },
+  {
+    id: 6,
+    courtId: 6,
+    title: "Sinh viên giao lưu - Thủ Đức",
+    level: "Beginner",
+    time: "16:00 - 18:00",
+    date: "T7 này",
+    slots: "1/4",
+    organizer: "Tiến Dũng",
+    price: "25k/người"
+  },
+  {
+    id: 7,
+    courtId: 7,
+    title: "Đánh đôi nâng cao - Lê Văn Tám",
+    level: "Pro",
+    time: "19:00 - 21:00",
+    date: "Hôm nay",
+    slots: "2/2",
+    organizer: "Thanh Trúc",
+    price: "70k/người"
+  },
+  {
     id: 8,
     courtId: 1,
     title: "Kèo Pro - Sân Đào Duy Anh",
