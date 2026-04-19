@@ -136,6 +136,10 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-primary:active {
@@ -433,9 +437,11 @@ h1, h2, h3 {
   white-space: nowrap;
   padding: 8px 16px;
   border-radius: 20px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.1); /* Increased from 0.05 */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Increased from 0.1 */
+  color: #ccc;
   font-size: 0.85rem;
+  transition: all 0.2s;
 }
 
 .chip.active {
@@ -622,7 +628,7 @@ h1, h2, h3 {
 
 .main-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
   background: rgba(10, 10, 10, 0.4); /* Subdued dark background for contrast */
@@ -896,4 +902,126 @@ h1, h2, h3 {
 
 .nav-item.active span {
   color: var(--primary);
+}
+
+/* Autocomplete Suggestions */
+.suggestion-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin-top: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  animation: fadeInDown 0.2s ease-out;
+}
+
+.suggestion-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: rgba(195, 255, 0, 0.1);
+  padding-left: 20px;
+}
+
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Financial UI - Payments and Split Bill */
+.payment-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.payment-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.payment-option.active {
+  border-color: var(--primary);
+  background: rgba(195, 255, 0, 0.05);
+}
+
+.payment-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 900;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.payment-icon.large {
+  width: 70px;
+  height: 70px;
+  font-size: 2rem;
+  border-radius: 16px;
+}
+
+.amount-presets {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tx-item-container {
+  background: var(--glass);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.tx-item-container .tx-item {
+  border-bottom: none;
+  background: transparent;
+  margin-bottom: 0;
+  padding: 12px 16px; /* Added internal padding */
+}
+
+.split-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

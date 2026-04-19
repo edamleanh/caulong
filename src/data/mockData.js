@@ -192,9 +192,9 @@ export const USER_STATS = {
 };
 
 export const TRANSACTIONS = [
-  { id: 1, title: "Nạp tiền ví nhóm", amount: "+200.000đ", date: "Hôm qua", type: "deposit" },
-  { id: 2, title: "Thanh toán sân Đào Duy Anh", amount: "-45.000đ", date: "Hôm qua", type: "payment" },
-  { id: 3, title: "Thanh toán sân Kỳ Hòa", amount: "-50.000đ", date: "15/04/2026", type: "payment" }
+  { id: 1, title: "Nạp tiền ví nhóm", amount: "+500.000đ", date: "Hôm qua", type: "deposit" },
+  { id: 2, title: "Thanh toán sân Đào Duy Anh", amount: "-240.000đ", date: "Hôm qua", type: "payment" },
+  { id: 3, title: "Thanh toán sân Kỳ Hòa", amount: "-180.000đ", date: "15/04/2026", type: "payment" }
 ];
 
 export const MATCH_HISTORY = [

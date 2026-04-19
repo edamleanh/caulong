@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { X, Calendar, Clock, MapPin, Award } from 'lucide-react';
 
-const CreateMatchModal = ({ onBack, onCreate }) => {
+const CreateMatchModal = ({ onBack, onCreate, courts }) => {
   const [formData, setFormData] = useState({
     title: '',
+    location: '',
+    courtId: null,
     level: 'Intermediate',
     time: '18:00 - 20:00',
     date: 'Hôm nay',
@@ -12,9 +14,47 @@ const CreateMatchModal = ({ onBack, onCreate }) => {
     slots: '0/4'
   });
 
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const removeAccents = (str) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "D");
+  };
+
+  const handleLocationChange = (val) => {
+    setFormData({ ...formData, location: val, courtId: null });
+    if (val.length > 0) {
+      const searchVal = removeAccents(val.toLowerCase());
+      const filtered = courts.filter(c => {
+        const nameNormalized = removeAccents(c.name.toLowerCase());
+        const locNormalized = removeAccents(c.location.toLowerCase());
+        return nameNormalized.includes(searchVal) || locNormalized.includes(searchVal);
+      }).slice(0, 5);
+      setSuggestions(filtered);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const selectSuggestion = (court) => {
+    setFormData({ 
+      ...formData, 
+      location: court.name, 
+      courtId: court.id,
+      price: court.price.split('-')[0].trim() + '/người' // Auto-fill price
+    });
+    setShowSuggestions(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.title) return;
+    if (!formData.title || !formData.location) return;
     onCreate({ ...formData, id: Date.now(), slots: '1/4' });
   };
 
@@ -32,7 +72,7 @@ const CreateMatchModal = ({ onBack, onCreate }) => {
       <div className="screen-content" style={{ padding: '0 20px 20px', flex: 1, overflowY: 'auto' }}>
         <form onSubmit={handleSubmit}>
           <div className="mb-20">
-            <label className="muted" style={{ display: 'block', marginBottom: '8px' }}>Tên cuộc gọi (VD: Giao lưu Quận 1)</label>
+            <label className="muted" style={{ display: 'block', marginBottom: '8px' }}>Tên kèo đấu (VD: Giao lưu Quận 1)</label>
             <input 
               type="text" 
               className="search-input-wrapper" 
@@ -41,6 +81,38 @@ const CreateMatchModal = ({ onBack, onCreate }) => {
               value={formData.title}
               onChange={e => setFormData({...formData, title: e.target.value})}
             />
+          </div>
+
+          <div className="mb-20" style={{ position: 'relative' }}>
+            <label className="muted" style={{ display: 'block', marginBottom: '8px' }}>Địa điểm (VD: Sân Kỳ Hòa hoặc Quận 10)</label>
+            <input 
+              type="text" 
+              className="search-input-wrapper" 
+              style={{ width: '100%', background: 'var(--accent)', border: 'none', padding: '15px', color: 'white', borderRadius: '12px' }}
+              placeholder="Nhập địa điểm..."
+              value={formData.location}
+              onChange={e => handleLocationChange(e.target.value)}
+              onFocus={() => formData.location.length > 0 && setShowSuggestions(true)}
+            />
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="suggestion-dropdown glass-card">
+                {suggestions.map(court => (
+                  <div 
+                    key={court.id} 
+                    className="suggestion-item"
+                    onClick={() => selectSuggestion(court)}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <MapPin size={14} color="var(--primary)" />
+                      <div>
+                        <div style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>{court.name}</div>
+                        <div className="muted" style={{ fontSize: '0.7rem' }}>{court.location}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="mb-15" style={{ display: 'flex', gap: '15px' }}>

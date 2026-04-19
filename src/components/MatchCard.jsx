@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Clock, User as UserIcon } from 'lucide-react';
+import { Calendar, Clock, User as UserIcon, MapPin } from 'lucide-react';
 
 const MatchCard = ({ match, onJoin, onSelect, isJoined }) => {
   return (
@@ -7,7 +7,18 @@ const MatchCard = ({ match, onJoin, onSelect, isJoined }) => {
       <div className="match-header">
         <div>
           <h3>{match.title}</h3>
-          <p className="muted">{match.organizer}</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <p className="muted" style={{ margin: 0 }}>{match.organizer}</p>
+            {match.location && (
+              <>
+                <span className="muted">•</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <MapPin size={12} color="#888" />
+                  <span className="muted" style={{ fontSize: '0.75rem' }}>{match.location}</span>
+                </div>
+              </>
+            )}
+          </div>
         </div>
         <div className="level-badge">{match.level}</div>
       </div>

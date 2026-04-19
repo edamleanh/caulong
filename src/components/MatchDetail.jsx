@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, MapPin, Calendar, Clock, Users, Shield, MessageCircle } from 'lucide-react';
 
-const MatchDetail = ({ match, onBack, onJoin, onViewPlayer, isJoined }) => {
+const MatchDetail = ({ match, onBack, onJoin, onViewPlayer, isJoined, courts }) => {
+  const court = courts?.find(c => c.id === match.courtId);
+  const locationDisplay = court ? court.name : (match.location || "Đang cập nhật...");
+
   const participants = [
     { id: 1, name: "Hùng Cầu", avatar: "https://ui-avatars.com/api/?name=HC&background=random" },
     { id: 2, name: "Minh Anh", avatar: "https://ui-avatars.com/api/?name=MA&background=random" },
@@ -25,7 +28,7 @@ const MatchDetail = ({ match, onBack, onJoin, onViewPlayer, isJoined }) => {
           <div className="match-details">
             <div className="detail-item">
               <MapPin size={18} color="var(--primary)" />
-              <span>Sân Cầu Lông Đào Duy Anh</span>
+              <span>{locationDisplay}</span>
             </div>
             <div className="detail-item">
               <Calendar size={18} color="var(--primary)" />

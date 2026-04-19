@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './index.css';
-import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle, Zap, Rocket, History, Shield } from 'lucide-react';
+import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle, Zap, Rocket, History, Shield, Users } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { COURTS, MATCHES, USER_STATS, TRANSACTIONS, PLAYERS, MATCH_HISTORY } from './data/mockData';
@@ -10,6 +10,8 @@ import MatchDetail from './components/MatchDetail';
 import PlayerProfile from './components/PlayerProfile';
 import CreateMatchModal from './components/CreateMatchModal';
 import MatchCard from './components/MatchCard';
+import PaymentMethodsModal from './components/PaymentMethodsModal';
+import SplitBillModal from './components/SplitBillModal';
 
 // Notification/Toast Component
 const Toast = ({ message, type = 'success', onClose }) => {
@@ -172,11 +174,7 @@ const Courts = ({ onBookCourt }) => {
 
       <div className="map-overlay">
         <div className="main-header">
-          <Menu size={24} color="white" />
           <h1 className="neon-text">KINETIC COURT</h1>
-          <div className="avatar-small">
-             <img src="https://ui-avatars.com/api/?name=NV+A&background=random" alt="user" style={{ width: 32, borderRadius: '50%' }} />
-          </div>
         </div>
 
         <div className="search-section">
@@ -262,7 +260,7 @@ const Matchmaking = ({ matches, onJoin, onSelect, onCreateClick, joinedIds }) =>
   </div>
 );
 
-const GroupWallet = ({ balance, transactions, onDeposit }) => (
+const GroupWallet = ({ balance, transactions, onDeposit, onOpenDeposit, onOpenSplit }) => (
   <div className="screen-content">
     <h1 className="neon-text">Ví Nhóm</h1>
     
@@ -270,8 +268,9 @@ const GroupWallet = ({ balance, transactions, onDeposit }) => (
       <p className="muted">Số dư hiện tại</p>
       <div className="balance-amount">{balance.toLocaleString()}đ</div>
       <div className="balance-actions">
-        <button className="balance-btn" onClick={() => onDeposit(100000)}><Plus size={20} /> +100k</button>
-        <button className="balance-btn" onClick={() => onDeposit(200000)}><Plus size={20} /> +200k</button>
+        <button className="btn-primary" style={{ padding: '12px 30px' }} onClick={onOpenDeposit}>
+          <Plus size={20} /> Nạp tiền
+        </button>
       </div>
     </div>
 
@@ -279,19 +278,32 @@ const GroupWallet = ({ balance, transactions, onDeposit }) => (
       <h2>Lịch sử giao dịch</h2>
     </div>
 
-    <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+    <div style={{ maxHeight: '400px', overflowY: 'auto', paddingBottom: '20px' }}>
       {transactions.map(tx => (
-        <div key={tx.id} className="tx-item">
-          <div className="tx-icon">
-            {tx.type === 'deposit' ? <Plus color="#c3ff00" /> : <CreditCard color="#ff4444" />}
+        <div key={tx.id} className="tx-item-container" style={{ marginBottom: '10px' }}>
+          <div className="tx-item">
+            <div className="tx-icon">
+              {tx.type === 'deposit' ? <Plus color="#c3ff00" /> : <CreditCard color="#ff4444" />}
+            </div>
+            <div className="tx-info">
+              <h4>{tx.title}</h4>
+              <p className="muted">{tx.date}</p>
+            </div>
+            <div className={`tx-amount ${tx.type === 'deposit' ? 'positive' : 'negative'}`}>
+              {tx.amount}
+            </div>
           </div>
-          <div className="tx-info">
-            <h4>{tx.title}</h4>
-            <p className="muted">{tx.date}</p>
-          </div>
-          <div className={`tx-amount ${tx.type === 'deposit' ? 'positive' : 'negative'}`}>
-            {tx.amount}
-          </div>
+          {tx.type === 'payment' && (
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '-5px', padding: '0 16px 12px' }}>
+               <button 
+                 className="chip" 
+                 style={{ fontSize: '0.7rem', padding: '4px 12px', border: '1px solid var(--primary)', color: 'var(--primary)' }}
+                 onClick={() => onOpenSplit(tx)}
+               >
+                 <Users size={12} style={{ marginRight: '4px' }} /> Chia tiền
+               </button>
+            </div>
+          )}
         </div>
       ))}
     </div>
@@ -445,23 +457,32 @@ function App() {
   const [activeMatchDetail, setActiveMatchDetail] = useState(null);
   const [viewingPlayer, setViewingPlayer] = useState(null);
   const [showCreateMatch, setShowCreateMatch] = useState(false);
+  const [showDepositModal, setShowDepositModal] = useState(false);
+  const [showSplitModal, setShowSplitModal] = useState(false);
+  const [activeTxToSplit, setActiveTxToSplit] = useState(null);
   const [matchesList, setMatchesList] = useState(MATCHES);
   const [joinedMatches, setJoinedMatches] = useState([]);
   const [balance, setBalance] = useState(450000);
   const [transactions, setTransactions] = useState(TRANSACTIONS);
   const [toast, setToast] = useState(null);
 
-  const handleDeposit = (amount) => {
+  const handleDeposit = (amount, methodName) => {
     setBalance(prev => prev + amount);
     const newTx = {
       id: Date.now(),
-      title: 'Nạp tiền ví',
+      title: `Nạp tiền qua ${methodName}`,
       amount: `+${amount.toLocaleString()}đ`,
       date: 'Vừa xong',
       type: 'deposit'
     };
     setTransactions([newTx, ...transactions]);
+    setShowDepositModal(false);
     setToast(`Đã nạp ${amount.toLocaleString()}đ vào ví!`);
+  };
+
+  const handleSplitConfirm = (tx, members, amountPerPerson) => {
+    setShowSplitModal(false);
+    setToast(`Đã gửi yêu cầu thu tiền tới ${members.length} người!`);
   };
 
   const handleConfirmBooking = (totalPrice) => {
@@ -533,10 +554,10 @@ function App() {
           onJoin={handleJoinMatch}
           onViewPlayer={(id) => {
             const player = PLAYERS.find(p => p.id === id);
-            console.log("Viewing player:", player);
             setViewingPlayer(player);
           }}
           isJoined={joinedMatches.some(m => m.id === activeMatchDetail.id)}
+          courts={COURTS}
         />
       );
     }
@@ -546,6 +567,7 @@ function App() {
         <CreateMatchModal 
           onBack={() => setShowCreateMatch(false)}
           onCreate={handleCreateMatch}
+          courts={COURTS}
         />
       );
     }
@@ -553,6 +575,25 @@ function App() {
     if (profileSubScreen === 'Lịch sử thi đấu') return <MatchHistory onBack={() => setProfileSubScreen(null)} />;
     if (profileSubScreen === 'Thành tích') return <Achievements onBack={() => setProfileSubScreen(null)} />;
     if (profileSubScreen === 'Cài đặt') return <SettingsPage onBack={() => setProfileSubScreen(null)} />;
+
+    if (showDepositModal) {
+      return (
+        <PaymentMethodsModal 
+          onBack={() => setShowDepositModal(false)}
+          onConfirm={handleDeposit}
+        />
+      );
+    }
+
+    if (showSplitModal && activeTxToSplit) {
+      return (
+        <SplitBillModal 
+          tx={activeTxToSplit}
+          onBack={() => { setShowSplitModal(false); setActiveTxToSplit(null); }}
+          onConfirm={handleSplitConfirm}
+        />
+      );
+    }
 
     switch(activeTab) {
       case 'courts': return <Courts onBookCourt={setBookingCourt} />;
@@ -565,7 +606,15 @@ function App() {
           joinedIds={joinedMatches}
         />
       );
-      case 'bookings': return <GroupWallet balance={balance} transactions={transactions} onDeposit={handleDeposit} />;
+      case 'bookings': return (
+        <GroupWallet 
+          balance={balance} 
+          transactions={transactions} 
+          onDeposit={handleDeposit}
+          onOpenDeposit={() => setShowDepositModal(true)}
+          onOpenSplit={(tx) => { setActiveTxToSplit(tx); setShowSplitModal(true); }}
+        />
+      );
       case 'profile': return <Profile onMenuClick={setProfileSubScreen} />;
       default: return <Courts onBookCourt={setBookingCourt} />;
     }

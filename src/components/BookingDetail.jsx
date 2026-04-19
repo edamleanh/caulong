@@ -5,6 +5,21 @@ import { X, Clock, ChevronLeft, Calendar as CalendarIcon, CheckCircle } from 'lu
 const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, onSelectMatch, joinedIds }) => {
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [bookingScale, setBookingScale] = useState(1); // To simulate "Loading"
+  
+  // Dynamic Date Generation (Next 7 days)
+  const today = new Date();
+  const dateList = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date();
+    d.setDate(today.getDate() + i);
+    const dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+    return {
+      dayStr: dayNames[d.getDay()],
+      dateNum: d.getDate(),
+      fullDate: d.toDateString() // unique key
+    };
+  });
+
+  const [selectedDate, setSelectedDate] = useState(dateList[0].fullDate);
 
   const slots = [
     { id: 1, time: '06:00', price: 80 },
@@ -29,7 +44,7 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
 
   const handleConfirm = () => {
     if (selectedSlots.length === 0) return;
-    onConfirm(totalPrice, selectedSlots);
+    onConfirm(totalPrice, selectedSlots, selectedDate);
   };
 
   return (
@@ -56,11 +71,16 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
           <h3>Chọn ngày</h3>
         </div>
         <div className="calendar-strip">
-          <div className="cal-day active"><span>CN</span><strong>19</strong></div>
-          <div className="cal-day"><span>T2</span><strong>20</strong></div>
-          <div className="cal-day"><span>T3</span><strong>21</strong></div>
-          <div className="cal-day"><span>T4</span><strong>22</strong></div>
-          <div className="cal-day"><span>T5</span><strong>23</strong></div>
+          {dateList.map((d, index) => (
+            <div 
+              key={index} 
+              className={`cal-day ${selectedDate === d.fullDate ? 'active' : ''}`}
+              onClick={() => setSelectedDate(d.fullDate)}
+            >
+              <span>{d.dayStr}</span>
+              <strong>{d.dateNum}</strong>
+            </div>
+          ))}
         </div>
 
         <div className="section-title mt-20">
