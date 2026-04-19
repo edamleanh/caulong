@@ -453,13 +453,20 @@ function App() {
     }
   };
 
-  const showBottomNav = !bookingCourt && !profileSubScreen && !activeMatchDetail && !showCreateMatch;
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    // Clear all sub-screens when switching tabs
+    setBookingCourt(null);
+    setProfileSubScreen(null);
+    setActiveMatchDetail(null);
+    setShowCreateMatch(false);
+  };
 
   return (
     <div className="app-container">
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
       {renderScreen()}
-      {showBottomNav && <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />}
+      <BottomNav activeTab={activeTab} setActiveTab={handleTabChange} />
     </div>
   );
 }
