@@ -1017,6 +1017,25 @@ h1, h2, h3 {
   gap: 8px;
 }
 
+.weight-btn {
+  background: rgba(195, 255, 0, 0.1);
+  border: 1px solid rgba(195, 255, 0, 0.3);
+  border-radius: 6px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  transition: all 0.2s;
+}
+
+.weight-btn:hover {
+  background: var(--primary);
+  color: black;
+}
+
 .spin {
   animation: spin 1s linear infinite;
 }

@@ -480,9 +480,22 @@ function App() {
     setToast(`Đã nạp ${amount.toLocaleString()}đ vào ví!`);
   };
 
-  const handleSplitConfirm = (tx, members, amountPerPerson) => {
+  const handleSplitConfirm = (tx, members, amountPerPerson, extraFee = 0) => {
     setShowSplitModal(false);
-    setToast(`Đã gửi yêu cầu thu tiền tới ${members.length} người!`);
+    
+    if (extraFee > 0) {
+      const correctionTx = {
+        id: Date.now(),
+        title: `Phí phát sinh: ${tx.title.replace('Thanh toán ', '')}`,
+        amount: `-${extraFee.toLocaleString()}đ`,
+        date: 'Vừa xong',
+        type: 'payment'
+      };
+      setTransactions(prev => [correctionTx, ...prev]);
+      setBalance(prev => prev - extraFee);
+    }
+
+    setToast(`Đã ghi nhận phí và gửi yêu cầu tới ${members.length} người!`);
   };
 
   const handleConfirmBooking = (totalPrice) => {
