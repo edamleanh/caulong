@@ -47,15 +47,24 @@ const BottomNav = ({ activeTab, setActiveTab }) => {
   );
 };
 
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
+
+// Helper component to handle map movement
+const MapHandler = ({ center }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (center) {
+      map.flyTo(center, 15, { duration: 1.5 });
+    }
+  }, [center, map]);
+  return null;
+};
+
 const Courts = ({ onBookCourt }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDistrict, setFilterDistrict] = useState('ALL');
   const [selectedCourt, setSelectedCourt] = useState(COURTS[0]);
-
-  // Panning State
-  const [mapPosition, setMapPosition] = useState({ x: -800, y: -800 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
   const districts = ['ALL', 'QUẬN 1', 'BÌNH THẠNH', 'QUẬN 7', 'THỦ ĐỨC'];
 
@@ -73,46 +82,41 @@ const Courts = ({ onBookCourt }) => {
     return matchesSearch && matchesDistrict;
   });
 
-  const handlePointerDown = (e) => {
-    setIsDragging(true);
-    setStartPos({ x: e.clientX - mapPosition.x, y: e.clientY - mapPosition.y });
-  };
-
-  const handlePointerMove = (e) => {
-    if (!isDragging) return;
-    
-    let newX = e.clientX - startPos.x;
-    let newY = e.clientY - startPos.y;
-
-    // Boundary constraints (Map is 2000x2000, Viewport is roughly 400x800)
-    newX = Math.min(0, Math.max(newX, -1600));
-    newY = Math.min(0, Math.max(newY, -1200));
-
-    setMapPosition({ x: newX, y: newY });
-  };
-
-  const handlePointerUp = () => {
-    setIsDragging(false);
-  };
+  // Custom Icon Logic
+  const createCustomIcon = (isActive) => L.divIcon({
+    className: 'custom-marker',
+    html: `<div class="marker-inner ${isActive ? 'active' : ''}"></div>`,
+    iconSize: isActive ? [30, 30] : [20, 20],
+    iconAnchor: isActive ? [15, 15] : [10, 10]
+  });
 
   return (
-    <div className="courts-screen" onPointerMove={handlePointerMove} onPointerUp={handlePointerUp}>
-      <div 
-        className={`map-container ${isDragging ? 'dragging' : ''}`}
-        style={{ transform: `translate(${mapPosition.x}px, ${mapPosition.y}px)` }}
-        onPointerDown={handlePointerDown}
-      >
-        <div className="map-lines"></div>
-        {filteredCourts.map(court => (
-          <div 
-            key={court.id} 
-            className={`marker ${selectedCourt?.id === court.id ? 'active' : ''}`}
-            style={{ left: `${court.x}%`, top: `${court.y}%` }}
-            onClick={(e) => { e.stopPropagation(); setSelectedCourt(court); }}
-          >
-             <MapPin size={selectedCourt?.id === court.id ? 24 : 18} color="white" fill={selectedCourt?.id === court.id ? "black" : "transparent"} />
-          </div>
-        ))}
+    <div className="courts-screen">
+      <div className="map-container" style={{ position: 'absolute', inset: 0 }}>
+        <MapContainer 
+          center={[10.7841, 106.6912]} 
+          zoom={13} 
+          zoomControl={false}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <TileLayer
+            attribution='&copy; CARTO'
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          />
+          
+          <MapHandler center={selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null} />
+
+          {filteredCourts.map(court => (
+            <Marker 
+              key={court.id} 
+              position={[court.lat, court.lng]}
+              icon={createCustomIcon(selectedCourt?.id === court.id)}
+              eventHandlers={{
+                click: () => setSelectedCourt(court)
+              }}
+            />
+          ))}
+        </MapContainer>
       </div>
 
       <div className="map-overlay">
@@ -170,7 +174,7 @@ const Courts = ({ onBookCourt }) => {
                     <p className="muted" style={{ fontSize: '0.7rem', margin: '4px 0 0' }}>{selectedCourt.location.toUpperCase()} • {selectedCourt.distance}</p>
                   </div>
                   <div className="court-price-col">
-                    <div className="court-price-val">150k</div>
+                    <div className="court-price-val">{selectedCourt.price}</div>
                     <div className="court-price-label">MỖI GIỜ</div>
                   </div>
                 </div>
@@ -180,10 +184,6 @@ const Courts = ({ onBookCourt }) => {
           </div>
         )}
       </div>
-
-      <button className="fab">
-        <Plus size={32} />
-      </button>
     </div>
   );
 };

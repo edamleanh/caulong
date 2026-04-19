@@ -35,13 +35,40 @@ body {
   margin: 0 auto;
   border-left: 1px solid var(--glass-border);
   border-right: 1px solid var(--glass-border);
+  overflow: hidden; /* Ensure nothing spills out */
 }
 
-.screen-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  padding-bottom: 100px; /* Space for bottom nav */
+/* Leaflet Integration Styles */
+@import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  background: #050505 !important;
+}
+
+.custom-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marker-inner {
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--primary);
+  transition: all 0.2s;
+}
+
+.marker-inner.active {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border: 4px solid var(--primary);
+  box-shadow: 0 0 25px var(--primary);
 }
 
 /* Glassmorphism Classes */

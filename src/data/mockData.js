@@ -8,8 +8,8 @@ export const COURTS = [
     price: "80k - 120k",
     image: "/images/court1.jpg",
     tags: ["Máy lạnh", "Gần trung tâm", "Sân thảm"],
-    x: 25,
-    y: 35
+    lat: 10.8009,
+    lng: 106.6781
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ export const COURTS = [
     price: "60k - 90k",
     image: "/images/court2.jpg",
     tags: ["Giá rẻ", "Thoáng mát", "Có bãi đỗ xe"],
-    x: 65,
-    y: 25
+    lat: 10.7928,
+    lng: 106.7214
   },
   {
     id: 3,
@@ -32,8 +32,8 @@ export const COURTS = [
     price: "100k - 150k",
     image: "/images/court3.jpg",
     tags: ["Sân chuẩn thi đấu", "Ánh sáng tốt"],
-    x: 50,
-    y: 55
+    lat: 10.7761,
+    lng: 106.6713
   },
   {
     id: 4,
@@ -44,8 +44,8 @@ export const COURTS = [
     price: "70k - 110k",
     image: "/images/court2.jpg",
     tags: ["Giá rẻ", "Sân thảm"],
-    x: 75,
-    y: 70
+    lat: 10.7381,
+    lng: 106.7022
   },
   {
     id: 5,
@@ -56,8 +56,8 @@ export const COURTS = [
     price: "85k - 130k",
     image: "/images/court1.jpg",
     tags: ["Mới khai trương", "Dịch vụ tốt"],
-    x: 40,
-    y: 20
+    lat: 10.8049,
+    lng: 106.6961
   },
   {
     id: 6,
@@ -68,8 +68,8 @@ export const COURTS = [
     price: "50k - 80k",
     image: "/images/court6.jpg",
     tags: ["Sinh viên", "Giá rẻ"],
-    x: 85,
-    y: 15
+    lat: 10.8601,
+    lng: 106.8034
   },
   {
     id: 7,
@@ -80,8 +80,8 @@ export const COURTS = [
     price: "120k - 180k",
     image: "/images/court7.jpg",
     tags: ["Đẳng cấp", "Sân thảm"],
-    x: 48,
-    y: 42
+    lat: 10.7841,
+    lng: 106.6912
   }
 ];
 
