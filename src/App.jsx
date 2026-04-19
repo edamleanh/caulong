@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
 import { COURTS, MATCHES, USER_STATS, TRANSACTIONS } from './data/mockData';
 import BookingDetail from './components/BookingDetail';
 import { MatchHistory, Achievements, SettingsPage } from './components/ProfileSubScreens';
@@ -47,8 +49,6 @@ const BottomNav = ({ activeTab, setActiveTab }) => {
   );
 };
 
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
-import L from 'leaflet';
 
 // Helper component to handle map movement
 const MapHandler = ({ center }) => {
@@ -62,6 +62,8 @@ const MapHandler = ({ center }) => {
 };
 
 const Courts = ({ onBookCourt }) => {
+  console.log("Courts data:", COURTS);
+  console.log("Leaflet object L:", L);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDistrict, setFilterDistrict] = useState('ALL');
   const [selectedCourt, setSelectedCourt] = useState(COURTS[0]);
@@ -82,13 +84,26 @@ const Courts = ({ onBookCourt }) => {
     return matchesSearch && matchesDistrict;
   });
 
-  // Custom Icon Logic
-  const createCustomIcon = (isActive) => L.divIcon({
-    className: 'custom-marker',
-    html: `<div class="marker-inner ${isActive ? 'active' : ''}"></div>`,
-    iconSize: isActive ? [30, 30] : [20, 20],
-    iconAnchor: isActive ? [15, 15] : [10, 10]
-  });
+  // Custom Icon Logic (Neon Circle with Pin)
+  const createCustomIcon = (isActive, id) => {
+    const color = isActive ? 'white' : 'var(--primary)';
+    return L.divIcon({
+      className: 'custom-marker',
+      html: `
+        <div class="marker-container ${isActive ? 'active' : ''}">
+          <div class="marker-inner">
+            <svg viewBox="0 0 24 24" width="${isActive ? 20 : 14}" height="${isActive ? 20 : 14}" stroke="currentColor" stroke-width="2" fill="${isActive ? 'black' : 'none'}" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          ${isActive ? '<div class="marker-pulse"></div>' : ''}
+        </div>
+      `,
+      iconSize: isActive ? [40, 40] : [30, 30],
+      iconAnchor: isActive ? [20, 20] : [15, 15]
+    });
+  };
 
   return (
     <div className="courts-screen">
@@ -100,22 +115,28 @@ const Courts = ({ onBookCourt }) => {
           style={{ width: '100%', height: '100%' }}
         >
           <TileLayer
-            attribution='&copy; OpenStreetMap &copy; CARTO'
+            attribution='&copy; CARTO'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
           
           <MapHandler center={selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null} />
 
-          {filteredCourts.map(court => (
-            <Marker 
-              key={court.id} 
-              position={[court.lat, court.lng]}
-              icon={createCustomIcon(selectedCourt?.id === court.id)}
-              eventHandlers={{
-                click: () => setSelectedCourt(court)
-              }}
-            />
-          ))}
+          {COURTS.map(court => {
+            const isVisible = filteredCourts.some(fc => fc.id === court.id);
+            const isActive = selectedCourt?.id === court.id;
+            
+            return (
+              <Marker 
+                key={`${court.id}-${isActive}`} 
+                position={[court.lat, court.lng]}
+                icon={createCustomIcon(isActive, court.id)}
+                opacity={isVisible ? 1 : 0.3} // Fade out instead of removing to avoid Leaflet re-render glitches
+                eventHandlers={{
+                  click: () => setSelectedCourt(court)
+                }}
+              />
+            );
+          })}
         </MapContainer>
       </div>
 
