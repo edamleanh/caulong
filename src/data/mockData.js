@@ -184,7 +184,11 @@ export const USER_STATS = {
   rank: 125,
   wins: 48,
   matches: 72,
-  wallet: "450.000đ"
+  wallet: "450.000đ",
+  style: "Toàn diện",
+  gear: "Yonex Arcsaber 11 Play",
+  avatar: "https://ui-avatars.com/api/?name=Me&background=c3ff00&color=000",
+  bio: "Đam mê chinh phục mọi đỉnh cao cầu lông!"
 };
 
 export const TRANSACTIONS = [
@@ -209,4 +213,64 @@ export const ACHIEVEMENTS = [
   { id: 3, title: "Đại gia sân bãi", desc: "Đặt sân hơn 50 lần", icon: "💰", unlocked: false },
   { id: 4, title: "Người kết nối", desc: "Tham gia 20 nhóm giao lưu", icon: "🤝", unlocked: true },
   { id: 5, title: "Legend", desc: "Đạt cấp độ 50", icon: "👑", unlocked: false }
+];
+
+export const PLAYERS = [
+  {
+    id: 1,
+    name: "Hùng Cầu",
+    level: "Pro",
+    xp: 920,
+    maxXp: 1000,
+    rank: 42,
+    matches: 156,
+    winRate: "78%",
+    avatar: "https://ui-avatars.com/api/?name=HC&background=random&color=white",
+    style: "Tấn công",
+    gear: "Yonex Astrox 88D Pro",
+    bio: "Sân nào cũng cân, chỉ cần có kèo!",
+    unlockedAchievements: [1, 2, 4],
+    recentHistory: [
+      { id: 1, opponent: "Bạn", result: "WIN", score: "21-15, 21-18", date: "Đầu tuần", location: "Sân Đào Duy Anh" },
+      { id: 2, opponent: "Minh Anh", result: "WIN", score: "21-12, 21-10", date: "3 ngày trước", location: "Sân Kỳ Hòa" }
+    ]
+  },
+  {
+    id: 2,
+    name: "Minh Anh",
+    level: "Intermediate",
+    xp: 450,
+    maxXp: 1000,
+    rank: 215,
+    matches: 89,
+    winRate: "62%",
+    avatar: "https://ui-avatars.com/api/?name=MA&background=random&color=white",
+    style: "Phòng thủ",
+    gear: "Victor Thruster K",
+    bio: "Giao lưu vui vẻ, rèn luyện sức khỏe.",
+    unlockedAchievements: [4],
+    recentHistory: [
+      { id: 1, opponent: "Hùng Cầu", result: "LOSS", score: "12-21, 10-21", date: "3 ngày trước", location: "Sân Kỳ Hòa" },
+      { id: 2, opponent: "Tuyết Nhi", result: "WIN", score: "21-19, 21-17", date: "Tuần trước", location: "Sân Tao Đàn" }
+    ]
+  },
+  {
+    id: 3,
+    name: "Tuyết Nhi",
+    level: "Advanced",
+    xp: 780,
+    maxXp: 1000,
+    rank: 108,
+    matches: 124,
+    winRate: "71%",
+    avatar: "https://ui-avatars.com/api/?name=TN&background=random&color=white",
+    style: "Toàn diện",
+    gear: "Lining Tectonic 7",
+    bio: "Cầu lông là đam mê, bún đậu là lẽ sống.",
+    unlockedAchievements: [1, 4],
+    recentHistory: [
+      { id: 1, opponent: "Minh Anh", result: "LOSS", score: "19-21, 17-21", date: "Tuần trước", location: "Sân Tao Đàn" },
+      { id: 2, opponent: "Bạn", result: "WIN", score: "21-11, 21-14", date: "10 ngày trước", location: "Sân Phú Thọ" }
+    ]
+  }
 ];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronLeft, MapPin, Calendar, Clock, Users, Shield, MessageCircle } from 'lucide-react';
 
-const MatchDetail = ({ match, onBack, onJoin, isJoined }) => {
+const MatchDetail = ({ match, onBack, onJoin, onViewPlayer, isJoined }) => {
   const participants = [
     { id: 1, name: "Hùng Cầu", avatar: "https://ui-avatars.com/api/?name=HC&background=random" },
     { id: 2, name: "Minh Anh", avatar: "https://ui-avatars.com/api/?name=MA&background=random" },
@@ -43,7 +43,11 @@ const MatchDetail = ({ match, onBack, onJoin, isJoined }) => {
         </div>
         <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
           {participants.map(p => (
-            <div key={p.id} style={{ textAlign: 'center' }}>
+            <div 
+              key={p.id} 
+              style={{ textAlign: 'center', cursor: 'pointer' }}
+              onClick={() => onViewPlayer(p.id)}
+            >
               <img src={p.avatar} style={{ width: 50, height: 50, borderRadius: '50%', border: '2px solid var(--glass-border)' }} alt={p.name} />
               <p style={{ fontSize: '0.6rem', marginTop: '4px' }}>{p.name.split(' ')[0]}</p>
             </div>

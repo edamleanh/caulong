@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './index.css';
-import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle } from 'lucide-react';
+import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle, Zap, Rocket, History, Shield } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { COURTS, MATCHES, USER_STATS, TRANSACTIONS } from './data/mockData';
+import { COURTS, MATCHES, USER_STATS, TRANSACTIONS, PLAYERS, MATCH_HISTORY } from './data/mockData';
 import BookingDetail from './components/BookingDetail';
 import { MatchHistory, Achievements, SettingsPage } from './components/ProfileSubScreens';
 import MatchDetail from './components/MatchDetail';
+import PlayerProfile from './components/PlayerProfile';
 import CreateMatchModal from './components/CreateMatchModal';
 import MatchCard from './components/MatchCard';
 
@@ -307,55 +308,130 @@ const GroupWallet = ({ balance, transactions, onDeposit }) => (
 
 const Profile = ({ onMenuClick }) => {
   const progressPercent = (USER_STATS.xp / USER_STATS.maxXp) * 100;
+  const recentMatches = MATCH_HISTORY.slice(0, 3);
 
   return (
-    <div className="screen-content">
-      <div className="profile-header">
-        <div className="avatar">
-           <UserIcon size={40} color="#c3ff00" />
+    <div className="screen-content" style={{ paddingBottom: '100px' }}>
+      <div className="profile-header mt-20">
+        <div className="avatar-wrapper" style={{ position: 'relative' }}>
+          <img 
+            src={USER_STATS.avatar} 
+            style={{ width: 100, height: 100, borderRadius: '50%', border: '4px solid var(--primary)', boxShadow: '0 0 20px rgba(195, 255, 0, 0.4)' }} 
+            alt="My Avatar" 
+          />
+          <div className="level-badge-float" style={{ 
+            position: 'absolute', bottom: -5, left: '50%', transform: 'translateX(-50%)',
+            background: 'var(--primary)', color: 'black',
+            padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: '900',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.5)', whiteSpace: 'nowrap'
+          }}>
+            LEVEL 12
+          </div>
         </div>
-        <h2>{USER_STATS.name}</h2>
-        <p className="muted">{USER_STATS.level}</p>
+        <h2 style={{ fontSize: '2rem', marginTop: '20px', marginBottom: '5px' }}>{USER_STATS.name}</h2>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', fontSize: '0.9rem', fontWeight: 'bold' }}>
+          <Shield size={16} />
+          <span>{USER_STATS.level} Player</span>
+        </div>
+        <p className="muted" style={{ fontStyle: 'italic', marginTop: '10px' }}>"{USER_STATS.bio}"</p>
       </div>
 
-      <div className="glass-card xp-card">
-        <div className="xp-header">
-          <span>Level 12</span>
-          <span className="muted">{USER_STATS.xp}/{USER_STATS.maxXp} XP</span>
+      {/* XP Progress Bar */}
+      <div className="glass-card mt-20" style={{ padding: '15px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.8rem' }}>
+          <span className="muted">Tiến trình thăng hạng</span>
+          <span>{USER_STATS.xp}/{USER_STATS.maxXp} XP</span>
         </div>
-        <div className="progress-bar-bg">
-          <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }}></div>
+        <div className="progress-bar-bg" style={{ height: '8px' }}>
+          <div className="progress-bar-fill" style={{ width: `${progressPercent}%`, height: '100%' }}></div>
         </div>
-        <p className="muted mt-10">Còn 250 XP nữa để lên Level 13</p>
+        <p className="muted" style={{ fontSize: '0.7rem', marginTop: '8px' }}>Còn 250 XP nữa để lên Level 13</p>
       </div>
 
-      <div className="stats-grid">
+      <div className="stats-grid mt-20">
         <div className="glass-card stat-box">
           <p className="muted">Hạng</p>
           <div className="stat-value neon-text">#{USER_STATS.rank}</div>
         </div>
         <div className="glass-card stat-box">
-          <p className="muted">Tỉ lệ thắng</p>
+          <p className="muted">Win rate</p>
           <div className="stat-value">67%</div>
         </div>
         <div className="glass-card stat-box">
-          <p className="muted">Số trận</p>
+          <p className="muted">Trận đấu</p>
           <div className="stat-value">{USER_STATS.matches}</div>
         </div>
       </div>
 
-      <div className="menu-list">
+      <div className="section-title">
+        <h3>Vợt & Lối chơi</h3>
+      </div>
+      <div className="glass-card" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+        <div>
+          <p className="muted" style={{ fontSize: '0.7rem', marginBottom: '4px' }}>Lối chơi</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Zap size={16} color="var(--primary)" />
+            <span style={{ fontWeight: 'bold' }}>{USER_STATS.style}</span>
+          </div>
+        </div>
+        <div>
+          <p className="muted" style={{ fontSize: '0.7rem', marginBottom: '4px' }}>Vợt yêu thích</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Rocket size={16} color="var(--primary)" />
+            <span style={{ fontWeight: 'bold', fontSize: '0.8rem' }}>{USER_STATS.gear}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="section-title">
+        <h3>Trận đấu gần đây</h3>
+      </div>
+      <div className="history-preview">
+        {recentMatches.map(match => (
+          <div key={match.id} className="glass-card" style={{ marginBottom: '10px', padding: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ 
+                  width: '35px', height: '35px', borderRadius: '8px', 
+                  background: match.result === 'WIN' ? 'rgba(195, 255, 0, 0.1)' : 'rgba(255, 68, 68, 0.1)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: match.result === 'WIN' ? 'var(--primary)' : '#ff4444',
+                  fontWeight: 'bold', fontSize: '0.7rem'
+                }}>
+                  {match.result === 'WIN' ? 'W' : 'L'}
+                </div>
+                <div>
+                  <h4 style={{ margin: 0, fontSize: '0.9rem' }}>vs {match.opponent}</h4>
+                  <p className="muted" style={{ fontSize: '0.65rem' }}>{match.date} • {match.location.split(' ').pop()}</p>
+                </div>
+              </div>
+              <div style={{ fontWeight: 'bold', fontSize: '1rem' }}>{match.score}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="menu-list mt-20">
         <div className="menu-item" onClick={() => onMenuClick('Lịch sử thi đấu')}>
-          <span>Lịch sử đấu</span>
-          <ChevronRight size={20} color="#888" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <History size={18} color="#888" />
+            <span>Tất cả lịch sử đấu</span>
+          </div>
+          <ChevronRight size={18} color="#888" />
         </div>
         <div className="menu-item" onClick={() => onMenuClick('Thành tích')}>
-          <span>Thành tích</span>
-          <ChevronRight size={20} color="#888" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Trophy size={18} color="#888" />
+            <span>Thành tích cá nhân</span>
+          </div>
+          <ChevronRight size={18} color="#888" />
         </div>
         <div className="menu-item" onClick={() => onMenuClick('Cài đặt')}>
-          <span>Cài đặt hồ sơ</span>
-          <ChevronRight size={20} color="#888" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <CheckCircle size={18} color="#888" />
+            <span>Cài đặt hồ sơ</span>
+          </div>
+          <ChevronRight size={18} color="#888" />
         </div>
       </div>
     </div>
@@ -367,6 +443,7 @@ function App() {
   const [bookingCourt, setBookingCourt] = useState(null);
   const [profileSubScreen, setProfileSubScreen] = useState(null);
   const [activeMatchDetail, setActiveMatchDetail] = useState(null);
+  const [viewingPlayer, setViewingPlayer] = useState(null);
   const [showCreateMatch, setShowCreateMatch] = useState(false);
   const [matchesList, setMatchesList] = useState(MATCHES);
   const [joinedMatches, setJoinedMatches] = useState([]);
@@ -439,13 +516,27 @@ function App() {
       );
     }
 
+    if (viewingPlayer) {
+      return (
+        <PlayerProfile 
+          player={viewingPlayer} 
+          onBack={() => setViewingPlayer(null)} 
+        />
+      );
+    }
+
     if (activeMatchDetail) {
       return (
         <MatchDetail 
           match={activeMatchDetail} 
           onBack={() => setActiveMatchDetail(null)} 
           onJoin={handleJoinMatch}
-          isJoined={joinedMatches.includes(activeMatchDetail.id)}
+          onViewPlayer={(id) => {
+            const player = PLAYERS.find(p => p.id === id);
+            console.log("Viewing player:", player);
+            setViewingPlayer(player);
+          }}
+          isJoined={joinedMatches.some(m => m.id === activeMatchDetail.id)}
         />
       );
     }
