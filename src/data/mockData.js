@@ -2,46 +2,46 @@ export const COURTS = [
   {
     id: 1,
     name: "Sân Cầu Lông Đào Duy Anh",
-    location: "Quận Phú Nhuận, HCM",
+    location: "21 Đào Duy Anh, Phú Nhuận, HCM",
     distance: "1.2 km",
     rating: 4.8,
-    price: "80k - 120k",
+    price: "85k - 120k",
     image: "/images/court1.jpg",
-    tags: ["Máy lạnh", "Gần trung tâm", "Sân thảm"],
+    tags: ["Cao cấp", "Sân thảm", "Căng tin"],
     lat: 10.8009,
     lng: 106.6781
   },
   {
     id: 2,
     name: "Sân Cầu Lông Hiển Hoa",
-    location: "Quận 9, HCM",
+    location: "262/3 Trần Não, Quận 2, HCM",
     distance: "5.5 km",
     rating: 4.5,
-    price: "60k - 90k",
+    price: "70k - 100k",
     image: "/images/court2.jpg",
-    tags: ["Giá rẻ", "Thoáng mát", "Có bãi đỗ xe"],
+    tags: ["Thoáng mát", "Số lượng sân lớn"],
     lat: 10.7928,
     lng: 106.7214
   },
   {
     id: 3,
     name: "Sân Cầu Lông Kỳ Hòa",
-    location: "Quận 10, HCM",
+    location: "12 Đường 3/2, Quận 10, HCM",
     distance: "2.8 km",
     rating: 4.9,
-    price: "100k - 150k",
+    price: "110k - 160k",
     image: "/images/court3.jpg",
-    tags: ["Sân chuẩn thi đấu", "Ánh sáng tốt"],
+    tags: ["Trung tâm", "Thi đấu chuẩn"],
     lat: 10.7761,
     lng: 106.6713
   },
   {
     id: 4,
     name: "Sân Cầu Lông T793",
-    location: "Trần Xuân Soạn, Quận 7",
+    location: "793 Trần Xuân Soạn, Quận 7, HCM",
     distance: "4.1 km",
     rating: 4.3,
-    price: "70k - 110k",
+    price: "80k - 110k",
     image: "/images/court2.jpg",
     tags: ["Giá rẻ", "Sân thảm"],
     lat: 10.7381,
@@ -49,39 +49,39 @@ export const COURTS = [
   },
   {
     id: 5,
-    name: "Sân Cầu Lông Đất Thành",
-    location: "Phan Văn Trị, Bình Thạnh",
+    name: "Sân Cầu Lông Thanh Đa",
+    location: "353/7A Bình Quới, Bình Thạnh, HCM",
     distance: "3.5 km",
     rating: 4.6,
     price: "85k - 130k",
     image: "/images/court1.jpg",
     tags: ["Mới khai trương", "Dịch vụ tốt"],
-    lat: 10.8049,
-    lng: 106.6961
+    lat: 10.8143,
+    lng: 106.6976
   },
   {
     id: 6,
-    name: "Sân Cầu Lông Đại Học Thủ Đức",
-    location: "Linh Trung, Thủ Đức",
-    distance: "8.2 km",
-    rating: 4.2,
-    price: "50k - 80k",
+    name: "Sân Cầu Lông Tao Đàn",
+    location: "1 Huyền Trân Công Chúa, Quận 1, HCM",
+    distance: "0.5 km",
+    rating: 4.7,
+    price: "120k - 180k",
     image: "/images/court6.jpg",
-    tags: ["Sinh viên", "Giá rẻ"],
-    lat: 10.8601,
-    lng: 106.8034
+    tags: ["Sân chuẩn", "Trung tâm Q1"],
+    lat: 10.7758,
+    lng: 106.6923
   },
   {
     id: 7,
-    name: "Sân Cầu Lông Lê Văn Tám",
-    location: "Hai Bà Trưng, Quận 1",
-    distance: "0.8 km",
-    rating: 4.7,
-    price: "120k - 180k",
+    name: "Sân Cầu Lông Bộ Công An",
+    location: "215 Nguyễn Văn Cừ, Quận 1, HCM",
+    distance: "1.5 km",
+    rating: 4.4,
+    price: "90k - 140k",
     image: "/images/court7.jpg",
-    tags: ["Đẳng cấp", "Sân thảm"],
-    lat: 10.7841,
-    lng: 106.6912
+    tags: ["An ninh", "Rộng rãi"],
+    lat: 10.7634,
+    lng: 106.6826
   }
 ];
 
@@ -89,30 +89,30 @@ export const MATCHES = [
   {
     id: 1,
     courtId: 1,
-    title: "Giao lưu vui vẻ - Sân Đào Duy Anh",
-    level: "Intermediate",
-    time: "19:00 - 21:00",
+    title: "Giao lưu gắt - Đào Duy Anh",
+    level: "Khá",
+    time: "18:00 - 20:00",
     date: "Hôm nay",
-    slots: "3/4",
-    organizer: "Hùng Cầu",
-    price: "45k/người"
+    slots: "2/4",
+    organizer: "Minh Tuấn",
+    price: "50k/người"
   },
   {
     id: 2,
     courtId: 2,
-    title: "Tìm đồng đội luyện tập - Hiển Hoa",
-    level: "Beginner",
-    time: "17:00 - 19:00",
+    title: "Cầu lông vui vẻ - Quận 2",
+    level: "Mọi trình độ",
+    time: "19:00 - 21:00",
     date: "Hôm nay",
-    slots: "2/4",
-    organizer: "Minh Anh",
-    price: "35k/người"
+    slots: "3/4",
+    organizer: "Lan Anh",
+    price: "40k/người"
   },
   {
     id: 3,
     courtId: 3,
     title: "Kèo phủi sáng sớm - Kỳ Hòa",
-    level: "Intermediate",
+    level: "Trung bình",
     time: "06:00 - 08:00",
     date: "Ngày mai",
     slots: "1/4",
@@ -122,8 +122,8 @@ export const MATCHES = [
   {
     id: 4,
     courtId: 4,
-    title: "Giao lưu Pro - Quận 7",
-    level: "Pro",
+    title: "Kèo Pro Quận 7 - T793",
+    level: "Khá - Giỏi",
     time: "20:00 - 22:00",
     date: "Hôm nay",
     slots: "2/4",
@@ -133,46 +133,46 @@ export const MATCHES = [
   {
     id: 5,
     courtId: 5,
-    title: "Kèo trưa vui vẻ - Đất Thành",
-    level: "Beginner",
-    time: "12:00 - 14:00",
-    date: "Chủ nhật",
+    title: "Sáng cuối tuần - Thanh Đa",
+    level: "Trung bình",
+    time: "08:00 - 10:00",
+    date: "Ngày mai",
     slots: "3/4",
     organizer: "Khánh Huyền",
-    price: "30k/người"
+    price: "45k/người"
   },
   {
     id: 6,
     courtId: 6,
-    title: "Sinh viên giao lưu - Thủ Đức",
-    level: "Beginner",
-    time: "16:00 - 18:00",
-    date: "T7 này",
-    slots: "1/4",
-    organizer: "Tiến Dũng",
-    price: "25k/người"
+    title: "Kèo trung tâm Q1 - Tao Đàn",
+    level: "Khá",
+    time: "17:00 - 19:00",
+    date: "Thứ 2",
+    slots: "2/4",
+    organizer: "Thành Nam",
+    price: "60k/người"
   },
   {
     id: 7,
     courtId: 7,
-    title: "Đánh đôi nâng cao - Lê Văn Tám",
-    level: "Pro",
+    title: "Giao lưu Bộ Công An",
+    level: "Trung bình +",
     time: "19:00 - 21:00",
     date: "Hôm nay",
-    slots: "2/2",
-    organizer: "Thanh Trúc",
-    price: "70k/người"
+    slots: "1/4",
+    organizer: "Quốc Anh",
+    price: "50k/người"
   },
   {
     id: 8,
     courtId: 1,
-    title: "Kèo Pro - Sân Đào Duy Anh",
-    level: "Pro",
-    time: "18:00 - 20:00",
+    title: "Kèo đêm Đào Duy Anh",
+    level: "Khá",
+    time: "21:00 - 23:00",
     date: "Hôm nay",
-    slots: "1/4",
-    organizer: "Trung Kiên",
-    price: "60k/người"
+    slots: "2/4",
+    organizer: "Văn Hùng",
+    price: "45k/người"
   }
 ];
 
@@ -198,9 +198,9 @@ export const MATCH_HISTORY = [
   { id: 2, opponent: "Trần Hùng", result: "LOSS", score: "19-21, 21-17, 18-21", date: "15/04/2026", location: "Sân Kỳ Hòa" },
   { id: 3, opponent: "Phạm Tuyết", result: "WIN", score: "21-10, 21-12", date: "12/04/2026", location: "Sân Hiển Hoa" },
   { id: 4, opponent: "Hoàng Nam", result: "WIN", score: "21-15, 21-12", date: "10/04/2026", location: "Sân T793" },
-  { id: 5, opponent: "Bảo Ngọc", result: "LOSS", score: "22-24, 19-21", date: "08/04/2026", location: "Sân Lê Văn Tám" },
-  { id: 6, opponent: "Quốc Anh", result: "WIN", score: "21-9, 21-14", date: "05/04/2026", location: "Sân Thủ Đức" },
-  { id: 7, opponent: "Thanh Trúc", result: "WIN", score: "21-18, 17-21, 21-19", date: "01/04/2026", location: "Sân Đất Thành" }
+  { id: 5, opponent: "Bảo Ngọc", result: "LOSS", score: "22-24, 19-21", date: "08/04/2026", location: "Sân Tao Đàn" },
+  { id: 6, opponent: "Quốc Anh", result: "WIN", score: "21-9, 21-14", date: "05/04/2026", location: "Sân Hiển Hoa" },
+  { id: 7, opponent: "Thanh Trúc", result: "WIN", score: "21-18, 17-21, 21-19", date: "01/04/2026", location: "Sân Thanh Đa" }
 ];
 
 export const ACHIEVEMENTS = [
