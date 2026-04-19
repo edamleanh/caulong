@@ -62,8 +62,6 @@ const MapHandler = ({ center }) => {
 };
 
 const Courts = ({ onBookCourt }) => {
-  console.log("Courts data:", COURTS);
-  console.log("Leaflet object L:", L);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDistrict, setFilterDistrict] = useState('Tất cả');
   const [selectedCourt, setSelectedCourt] = useState(COURTS[0]);
@@ -90,9 +88,19 @@ const Courts = ({ onBookCourt }) => {
     return matchesSearch && matchesDistrict;
   });
 
+  // Smart Selection: When filter results change, auto-select the first match
+  useEffect(() => {
+    if (filteredCourts.length > 0) {
+      if (!selectedCourt || !filteredCourts.some(fc => fc.id === selectedCourt.id)) {
+        setSelectedCourt(filteredCourts[0]);
+      }
+    } else {
+      setSelectedCourt(null);
+    }
+  }, [filterDistrict, searchQuery]);
+
   // Custom Icon Logic (Neon Circle with Pin)
   const createCustomIcon = (isActive, id) => {
-    const color = isActive ? 'white' : 'var(--primary)';
     return L.divIcon({
       className: 'custom-marker',
       html: `
@@ -127,22 +135,17 @@ const Courts = ({ onBookCourt }) => {
           
           <MapHandler center={selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null} />
 
-          {COURTS.map(court => {
-            const isVisible = filteredCourts.some(fc => fc.id === court.id);
-            const isActive = selectedCourt?.id === court.id;
-            
-            return (
-              <Marker 
-                key={`${court.id}-${isActive}`} 
-                position={[court.lat, court.lng]}
-                icon={createCustomIcon(isActive, court.id)}
-                opacity={isVisible ? 1 : 0.3} // Fade out instead of removing to avoid Leaflet re-render glitches
-                eventHandlers={{
-                  click: () => setSelectedCourt(court)
-                }}
-              />
-            );
-          })}
+          {/* Smart Marker Rendering: Only show filtered results with stable keys */}
+          {filteredCourts.map(court => (
+            <Marker 
+              key={court.id} 
+              position={[court.lat, court.lng]}
+              icon={createCustomIcon(selectedCourt?.id === court.id, court.id)}
+              eventHandlers={{
+                click: () => setSelectedCourt(court)
+              }}
+            />
+          ))}
         </MapContainer>
       </div>
 
