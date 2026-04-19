@@ -9,8 +9,8 @@ const MatchDetail = ({ match, onBack, onJoin, isJoined }) => {
   ];
 
   return (
-    <div className="screen-content booking-overlay active" style={{ padding: 0 }}>
-      {/* Header */}
+    <div className="booking-overlay active">
+      {/* Header - Fixed */}
       <div className="booking-header" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
         <button onClick={onBack} className="icon-btn-transparent">
           <ChevronLeft size={24} color="white" />
@@ -18,7 +18,8 @@ const MatchDetail = ({ match, onBack, onJoin, isJoined }) => {
         <h2 style={{ margin: 0 }}>Chi tiết trận đấu</h2>
       </div>
 
-      <div style={{ padding: '0 20px 20px' }}>
+      {/* Scrollable Content */}
+      <div className="screen-content" style={{ padding: '0 20px 100px', flex: 1, overflowY: 'auto' }}>
         <div className="glass-card" style={{ marginBottom: '20px' }}>
           <h2 style={{ margin: '0 0 10px', color: 'var(--primary)' }}>{match.title}</h2>
           <div className="match-details">
@@ -75,7 +76,8 @@ const MatchDetail = ({ match, onBack, onJoin, isJoined }) => {
         </button>
       </div>
 
-      <div className="booking-footer">
+      {/* Footer - Fixed */}
+      <div className="booking-footer" style={{ position: 'relative' }}>
         <div className="checkout-info">
           <div>
             <span className="muted">Giá dự kiến</span>

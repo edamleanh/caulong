@@ -32,16 +32,17 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
   };
 
   return (
-    <div className="screen-content booking-overlay active" style={{ padding: 0 }}>
-      {/* Header */}
-      <div className="booking-header" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+    <div className="booking-overlay active">
+      {/* Header - Fixed */}
+      <div className="booking-header" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '15px', flexShrink: 0 }}>
         <button onClick={onBack} className="icon-btn-transparent">
           <ChevronLeft size={24} color="white" />
         </button>
         <h2 style={{ margin: 0 }}>Đặt sân</h2>
       </div>
 
-      <div style={{ padding: '0 20px 20px' }}>
+      {/* Scrollable Content */}
+      <div className="screen-content" style={{ padding: '0 20px 100px', flex: 1, overflowY: 'auto' }}>
         <div className="glass-card" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
           <img src={court.image} style={{ width: 80, height: 80, borderRadius: 12, objectFit: 'cover' }} alt="court" />
           <div>
@@ -80,11 +81,11 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
         </div>
 
         {relatedMatches && relatedMatches.length > 0 && (
-          <>
-            <div className="section-title mt-20">
+          <div style={{ marginTop: '30px' }}>
+            <div className="section-title">
               <h3>Kèo đấu tại sân này</h3>
             </div>
-            <div className="related-matches-list" style={{ marginBottom: '80px' }}>
+            <div className="related-matches-list">
               {relatedMatches.map(match => (
                 <div key={match.id} className="glass-card" style={{ marginBottom: '12px', padding: '12px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -103,12 +104,12 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
                 </div>
               ))}
             </div>
-          </>
+          </div>
         )}
       </div>
 
-      {/* Footer Checkout */}
-      <div className="booking-footer">
+      {/* Footer - Fixed */}
+      <div className="booking-footer" style={{ position: 'relative', flexShrink: 0 }}>
         <div className="checkout-info">
           <div>
             <span className="muted">{selectedSlots.length} slot đã chọn</span>
