@@ -51,13 +51,11 @@ const BottomNav = ({ activeTab, setActiveTab }) => {
 
 
 // Helper component to handle map movement
-const MapHandler = ({ center }) => {
+const MapHandler = ({ center, zoom = 15 }) => {
   const map = useMap();
   useEffect(() => {
-    if (center) {
-      map.flyTo(center, 15, { duration: 1.5 });
-    }
-  }, [center, map]);
+    if (center) map.flyTo(center, zoom, { duration: 1.5 });
+  }, [center, zoom, map]);
   return null;
 };
 
@@ -133,7 +131,10 @@ const Courts = ({ onBookCourt }) => {
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
           
-          <MapHandler center={selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null} />
+          <MapHandler 
+            center={(filterDistrict === 'Tất cả' && !searchQuery) ? [10.7841, 106.6912] : (selectedCourt ? [selectedCourt.lat, selectedCourt.lng] : null)} 
+            zoom={(filterDistrict === 'Tất cả' && !searchQuery) ? 13 : 15}
+          />
 
           {/* Smart Marker Rendering: Only show filtered results with stable keys */}
           {filteredCourts.map(court => (
