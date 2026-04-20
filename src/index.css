@@ -914,7 +914,11 @@ h1, h2, h3 {
   margin-top: 5px;
   max-height: 250px;
   overflow-y: auto;
+  background: rgba(26, 26, 26, 0.9); /* More opaque background for production readability */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border: 1px solid var(--glass-border);
+  border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   animation: fadeInDown 0.2s ease-out;
 }
