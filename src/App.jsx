@@ -337,13 +337,13 @@ const Profile = ({ onMenuClick }) => {
             padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: '900',
             boxShadow: '0 4px 10px rgba(0,0,0,0.5)', whiteSpace: 'nowrap'
           }}>
-            CẤP ĐỘ 12
+            LEVEL 12
           </div>
         </div>
         <h2 style={{ fontSize: '2rem', marginTop: '20px', marginBottom: '5px' }}>{USER_STATS.name}</h2>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', fontSize: '0.9rem', fontWeight: 'bold' }}>
           <Shield size={16} />
-          <span>Cấp độ {USER_STATS.level}</span>
+          <span>Level {USER_STATS.level}</span>
         </div>
         <p className="muted" style={{ fontStyle: 'italic', marginTop: '10px' }}>"{USER_STATS.bio}"</p>
       </div>
@@ -405,12 +405,12 @@ const Profile = ({ onMenuClick }) => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ 
                   width: '35px', height: '35px', borderRadius: '8px', 
-                  background: match.result === 'THẮNG' ? 'rgba(195, 255, 0, 0.1)' : 'rgba(255, 68, 68, 0.1)',
+                  background: match.result === 'WIN' ? 'rgba(195, 255, 0, 0.1)' : 'rgba(255, 68, 68, 0.1)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: match.result === 'THẮNG' ? 'var(--primary)' : '#ff4444',
+                  color: match.result === 'WIN' ? 'var(--primary)' : '#ff4444',
                   fontWeight: 'bold', fontSize: '0.7rem'
                 }}>
-                  {match.result === 'THẮNG' ? 'T' : 'B'}
+                  {match.result === 'WIN' ? 'W' : 'L'}
                 </div>
                 <div>
                   <h4 style={{ margin: 0, fontSize: '0.9rem' }}>vs {match.opponent}</h4>

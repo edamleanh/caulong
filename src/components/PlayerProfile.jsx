@@ -32,13 +32,13 @@ const PlayerProfile = ({ player, onBack }) => {
               padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: '900',
               boxShadow: '0 4px 10px rgba(0,0,0,0.5)', whiteSpace: 'nowrap'
             }}>
-              CẤP ĐỘ {Math.floor(player.xp / 100) + 5}
+              LEVEL {Math.floor(player.xp / 100) + 5}
             </div>
           </div>
           <h2 style={{ fontSize: '2rem', marginTop: '20px', marginBottom: '5px' }}>{player.name}</h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', fontSize: '0.9rem', fontWeight: 'bold' }}>
             <Shield size={16} />
-            <span>Cấp độ {player.level}</span>
+            <span>Level {player.level}</span>
           </div>
           <p className="muted" style={{ fontStyle: 'italic', marginTop: '10px' }}>"{player.bio}"</p>
         </div>
@@ -46,7 +46,7 @@ const PlayerProfile = ({ player, onBack }) => {
         {/* XP Progress Bar */}
         <div className="glass-card mt-20" style={{ padding: '15px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.8rem' }}>
-            <span className="muted">Tiến trình cấp độ</span>
+            <span className="muted">Tiến trình Level</span>
             <span>{player.xp}/{player.maxXp} XP</span>
           </div>
           <div className="progress-bar-bg" style={{ height: '8px' }}>
@@ -112,7 +112,7 @@ const PlayerProfile = ({ player, onBack }) => {
             <div key={match.id} className="glass-card" style={{ marginBottom: '12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span style={{ color: match.result === 'WIN' ? 'var(--primary)' : '#ff4444', fontWeight: 900, fontSize: '0.8rem' }}>
-                  {match.result === 'THẮNG' ? 'CHIẾN THẮNG' : 'THẤT BẠI'}
+                  {match.result === 'WIN' ? 'CHIẾN THẮNG' : 'THẤT BẠI'}
                 </span>
                 <span className="muted" style={{ fontSize: '0.75rem' }}>{match.date}</span>
               </div>
