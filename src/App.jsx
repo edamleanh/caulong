@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './index.css';
-import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle, Zap, Rocket, History, Shield, Users } from 'lucide-react';
+import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle, Zap, Rocket, History, Shield, Users, X } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { COURTS, MATCHES, USER_STATS, TRANSACTIONS, PLAYERS, MATCH_HISTORY } from './data/mockData';
@@ -72,9 +72,10 @@ const MapHandler = ({ center, zoom = 15, bounds = null }) => {
 const Courts = ({ onBookCourt }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDistrict, setFilterDistrict] = useState('Tất cả');
+  const [showDistrictSheet, setShowDistrictSheet] = useState(false);
   const [selectedCourt, setSelectedCourt] = useState(COURTS[0]);
 
-  const districts = ['Tất cả', 'Quận 1', 'Quận 2', 'Quận 7', 'Quận 10', 'Bình Thạnh', 'Phú Nhuận'];
+  const districts = ['Tất cả', 'Quận 1', 'Quận 2', 'Quận 3', 'Quận 5', 'Quận 7', 'Quận 8', 'Quận 10', 'Bình Thạnh', 'Phú Nhuận', 'Gò Vấp', 'Tân Bình', 'Thủ Đức'];
 
   const normalize = (str) => {
     if (!str) return "";
@@ -193,16 +194,41 @@ const Courts = ({ onBookCourt }) => {
           </button>
         </div>
 
-        <div className="filter-chips-row">
-          {districts.map(d => (
-            <span 
-              key={d} 
-              className={`chip-filter ${filterDistrict === d ? 'active' : ''}`}
-              onClick={() => setFilterDistrict(d)}
-            >
-              {d}
-            </span>
-          ))}
+        <div className="district-selector-trigger" onClick={() => setShowDistrictSheet(true)}>
+          <MapIcon size={16} color="var(--primary)" />
+          <span>Khu vực: <strong>{filterDistrict}</strong></span>
+          <ChevronRight size={16} color="white" style={{ transform: 'rotate(90deg)' }} />
+        </div>
+
+        {/* Bottom Sheet Backdrop */}
+        <div 
+          className={`bottom-sheet-overlay ${showDistrictSheet ? 'active' : ''}`}
+          onClick={() => setShowDistrictSheet(false)}
+        ></div>
+
+        {/* District Bottom Sheet */}
+        <div className={`district-bottom-sheet ${showDistrictSheet ? 'active' : ''}`}>
+          <div className="drag-handle"></div>
+          <div className="sheet-header">
+            <h2 style={{ margin: 0 }}>Chọn khu vực</h2>
+            <button className="icon-btn-transparent" onClick={() => setShowDistrictSheet(false)}>
+              <X size={24} color="white" />
+            </button>
+          </div>
+          <div className="district-grid">
+            {districts.map(d => (
+              <div 
+                key={d} 
+                className={`district-chip-btn ${filterDistrict === d ? 'active' : ''}`}
+                onClick={() => {
+                  setFilterDistrict(d);
+                  setShowDistrictSheet(false);
+                }}
+              >
+                {d}
+              </div>
+            ))}
+          </div>
         </div>
 
         {selectedCourt && filteredCourts.includes(selectedCourt) && (

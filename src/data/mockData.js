@@ -82,6 +82,90 @@ export const COURTS = [
     tags: ["An ninh", "Rộng rãi"],
     lat: 10.7634,
     lng: 106.6826
+  },
+  {
+    id: 8,
+    name: "Sân Cầu Lông Enjoy Sport",
+    location: "185B Nguyễn Oanh, Gò Vấp, HCM",
+    distance: "6.2 km",
+    rating: 4.7,
+    price: "90k - 130k",
+    image: "/images/court3.jpg",
+    tags: ["Thoáng mát", "8 sân chuẩn"],
+    lat: 10.8351,
+    lng: 106.6775
+  },
+  {
+    id: 9,
+    name: "Sân Cầu Lông A75",
+    location: "K34 Bạch Đằng, Tân Bình, HCM",
+    distance: "3.5 km",
+    rating: 4.6,
+    price: "80k - 110k",
+    image: "/images/court1.jpg",
+    tags: ["Trung tâm", "Sân gỗ"],
+    lat: 10.8143,
+    lng: 106.6661
+  },
+  {
+    id: 10,
+    name: "Sân Cầu Lông Tada Bình Lợi",
+    location: "42 Kha Vạn Cân, Thủ Đức, HCM",
+    distance: "8.1 km",
+    rating: 4.9,
+    price: "100k - 150k",
+    image: "/images/court2.jpg",
+    tags: ["Hiện đại", "Căng tin VIP"],
+    lat: 10.8385,
+    lng: 106.7212
+  },
+  {
+    id: 11,
+    name: "Sân Cầu Lông Ga Hòa Hưng",
+    location: "1 Nguyễn Thông, Quận 3, HCM",
+    distance: "2.1 km",
+    rating: 4.5,
+    price: "85k - 120k",
+    image: "/images/court7.jpg",
+    tags: ["Dễ tìm", "Gần ga"],
+    lat: 10.7818,
+    lng: 106.6792
+  },
+  {
+    id: 12,
+    name: "Sân Cầu Lông Lê Hồng Phong",
+    location: "235 Nguyễn Văn Cừ, Quận 5, HCM",
+    distance: "4.5 km",
+    rating: 4.4,
+    price: "70k - 100k",
+    image: "/images/court6.jpg",
+    tags: ["Giá rẻ", "Khuôn viên trường"],
+    lat: 10.7607,
+    lng: 106.6806
+  },
+  {
+    id: 13,
+    name: "Sân Cầu Lông Hưng Phú",
+    location: "835 Hưng Phú, Quận 8, HCM",
+    distance: "5.8 km",
+    rating: 4.3,
+    price: "75k - 110k",
+    image: "/images/court3.jpg",
+    tags: ["Rộng rãi", "Phí gửi xe rẻ"],
+    lat: 10.7495,
+    lng: 106.6756
+  },
+  {
+    id: 14,
+    name: "Sân Cầu Lông Gia Bảo",
+    location: "47/2 Cây Trâm, Gò Vấp, HCM",
+    distance: "7.0 km",
+    rating: 4.2,
+    price: "80k - 120k",
+    image: "/images/court2.jpg",
+    tags: ["Yên tĩnh", "Sân thảm"],
+    lat: 10.8398,
+    lng: 106.6631
   }
 ];
 
@@ -171,7 +255,95 @@ export const MATCHES = [
     time: "21:00 - 23:00",
     date: "Hôm nay",
     slots: "2/4",
-    organizer: "Văn Hùng",
+    organizer: "Gia Bảo",
+    price: "45k/người"
+  },
+  {
+    id: 9,
+    courtId: 8,
+    title: "Giao lưu vui vẻ Gò Vấp",
+    level: "Trung bình",
+    time: "19:00 - 21:00",
+    date: "Tối nay",
+    slots: "1/4",
+    organizer: "Hùng Gò Vấp",
+    price: "55k/người"
+  },
+  {
+    id: 10,
+    courtId: 9,
+    title: "Kèo 2h gắt - A75",
+    level: "Chuyên nghiệp",
+    time: "17:00 - 19:00",
+    date: "Ngày mai",
+    slots: "3/4",
+    organizer: "An Tân Bình",
+    price: "60k/người"
+  },
+  {
+    id: 11,
+    courtId: 10,
+    title: "Sáng sớm Thủ Đức",
+    level: "Khá",
+    time: "06:00 - 08:00",
+    date: "Sáng mai",
+    slots: "0/4",
+    organizer: "Thành Đạt",
+    price: "40k/người"
+  },
+  {
+    id: 12,
+    courtId: 11,
+    title: "Trưa vắng Quận 3",
+    level: "Trung bình",
+    time: "11:00 - 13:00",
+    date: "Hôm nay",
+    slots: "2/4",
+    organizer: "Linh Ga",
+    price: "45k/người"
+  },
+  {
+    id: 13,
+    courtId: 12,
+    title: "Kèo CLB Lê Hồng Phong",
+    level: "Trung bình",
+    time: "18:00 - 20:00",
+    date: "Tối nay",
+    slots: "3/4",
+    organizer: "Văn Bình",
+    price: "40k/người"
+  },
+  {
+    id: 14,
+    courtId: 13,
+    title: "Đánh giải Hưng Phú",
+    level: "Khá",
+    time: "08:00 - 11:00",
+    date: "Sáng mai",
+    slots: "2/6",
+    organizer: "Thanh Trúc",
+    price: "50k/người"
+  },
+  {
+    id: 15,
+    courtId: 14,
+    title: "Gia Bảo Open",
+    level: "Chuyên nghiệp",
+    time: "15:00 - 18:00",
+    date: "Chủ Nhật",
+    slots: "4/8",
+    organizer: "Trọng Hiếu",
+    price: "70k/người"
+  },
+  {
+    id: 16,
+    courtId: 8,
+    title: "Enjoy Badminton Night",
+    level: "Trung bình +",
+    time: "20:00 - 22:30",
+    date: "Hôm nay",
+    slots: "1/4",
+    organizer: "Mai Anh",
     price: "45k/người"
   }
 ];

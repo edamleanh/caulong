@@ -1048,3 +1048,121 @@ h1, h2, h3 {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+/* District Selector Bottom Sheet */
+.district-selector-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 10, 10, 0.4);
+  border: 1px solid var(--glass-border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin: 0 20px 15px;
+  cursor: pointer;
+  width: fit-content;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+}
+
+.district-selector-trigger:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.district-selector-trigger span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+}
+
+.district-selector-trigger strong {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.bottom-sheet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.bottom-sheet-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.district-bottom-sheet {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: #111;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding: 30px 20px 50px;
+  z-index: 2001;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-top: 1px solid var(--glass-border);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.district-bottom-sheet.active {
+  bottom: 0;
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.district-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.district-chip-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: white;
+  padding: 15px 5px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.district-chip-btn.active {
+  background: var(--primary);
+  color: black;
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(195, 255, 0, 0.3);
+}
+
+.district-chip-btn:active {
+  transform: scale(0.92);
+}
+
+.drag-handle {
+  width: 40px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin: -15px auto 20px;
+}
