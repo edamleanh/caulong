@@ -73,7 +73,32 @@ const Courts = ({ onBookCourt }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDistrict, setFilterDistrict] = useState('Tất cả');
   const [showDistrictSheet, setShowDistrictSheet] = useState(false);
+  const [startY, setStartY] = useState(0);
+  const [currentY, setCurrentY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const [selectedCourt, setSelectedCourt] = useState(COURTS[0]);
+
+  const translateY = isDragging ? Math.max(0, currentY - startY) : 0;
+
+  const handleTouchStart = (e) => {
+    setStartY(e.touches[0].clientY);
+    setCurrentY(e.touches[0].clientY);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    setCurrentY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    if (currentY - startY > 150) {
+      setShowDistrictSheet(false);
+    }
+    setStartY(0);
+    setCurrentY(0);
+  };
 
   const districts = ['Tất cả', 'Quận 1', 'Quận 2', 'Quận 3', 'Quận 5', 'Quận 7', 'Quận 8', 'Quận 10', 'Bình Thạnh', 'Phú Nhuận', 'Gò Vấp', 'Tân Bình', 'Thủ Đức'];
 
@@ -207,27 +232,45 @@ const Courts = ({ onBookCourt }) => {
         ></div>
 
         {/* District Bottom Sheet */}
-        <div className={`district-bottom-sheet ${showDistrictSheet ? 'active' : ''}`}>
-          <div className="drag-handle"></div>
-          <div className="sheet-header">
+        <div 
+          className={`district-bottom-sheet ${showDistrictSheet ? 'active' : ''} ${isDragging ? 'dragging' : ''}`}
+          style={{ 
+            transform: `translateX(-50%) translateY(${translateY}px)`
+          }}
+        >
+          <div 
+            className="drag-handle" 
+            style={{ cursor: 'grab' }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          ></div>
+          <div 
+            className="sheet-header"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <h2 style={{ margin: 0 }}>Chọn khu vực</h2>
             <button className="icon-btn-transparent" onClick={() => setShowDistrictSheet(false)}>
               <X size={24} color="white" />
             </button>
           </div>
-          <div className="district-grid">
-            {districts.map(d => (
-              <div 
-                key={d} 
-                className={`district-chip-btn ${filterDistrict === d ? 'active' : ''}`}
-                onClick={() => {
-                  setFilterDistrict(d);
-                  setShowDistrictSheet(false);
-                }}
-              >
-                {d}
-              </div>
-            ))}
+          <div className="district-scroll-area">
+            <div className="district-grid">
+              {districts.map(d => (
+                <div 
+                  key={d} 
+                  className={`district-chip-btn ${filterDistrict === d ? 'active' : ''}`}
+                  onClick={() => {
+                    setFilterDistrict(d);
+                    setShowDistrictSheet(false);
+                  }}
+                >
+                  {d}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -1105,22 +1105,46 @@ h1, h2, h3 {
   position: fixed;
   bottom: -100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(0);
   width: 100%;
   max-width: 500px;
   background: #111;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  padding: 30px 20px 50px;
+  padding: 15px 20px 40px; /* Reduced top padding for handle */
   z-index: 2001;
-  transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s ease-out;
   border-top: 1px solid var(--glass-border);
-  max-height: 80vh;
-  overflow-y: auto;
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.district-bottom-sheet.dragging {
+  transition: none !important;
 }
 
 .district-bottom-sheet.active {
   bottom: 0;
+}
+
+.district-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+  margin-top: 10px;
+  /* Scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+.district-scroll-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.district-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
 }
 
 .sheet-header {
