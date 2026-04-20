@@ -29,6 +29,9 @@ body {
 .app-container {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
+  /* Fallback for older browsers */
+  height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -872,14 +875,15 @@ h1, h2, h3 {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: auto;
+  min-height: 80px;
   background: rgba(10, 10, 10, 0.8);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--glass-border);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 10px;
+  padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
   z-index: 100;
 }
 
