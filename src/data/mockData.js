@@ -178,7 +178,7 @@ export const MATCHES = [
 
 export const USER_STATS = {
   name: "Nguyễn Văn A",
-  level: "Intermediate",
+  level: "Trung bình",
   xp: 750,
   maxXp: 1000,
   rank: 125,
@@ -198,18 +198,18 @@ export const TRANSACTIONS = [
 ];
 
 export const MATCH_HISTORY = [
-  { id: 1, opponent: "Lê Minh", result: "WIN", score: "21-18, 21-15", date: "Hôm qua", location: "Sân Đào Duy Anh" },
-  { id: 2, opponent: "Trần Hùng", result: "LOSS", score: "19-21, 21-17, 18-21", date: "15/04/2026", location: "Sân Kỳ Hòa" },
-  { id: 3, opponent: "Phạm Tuyết", result: "WIN", score: "21-10, 21-12", date: "12/04/2026", location: "Sân Hiển Hoa" },
-  { id: 4, opponent: "Hoàng Nam", result: "WIN", score: "21-15, 21-12", date: "10/04/2026", location: "Sân T793" },
-  { id: 5, opponent: "Bảo Ngọc", result: "LOSS", score: "22-24, 19-21", date: "08/04/2026", location: "Sân Tao Đàn" },
-  { id: 6, opponent: "Quốc Anh", result: "WIN", score: "21-9, 21-14", date: "05/04/2026", location: "Sân Hiển Hoa" },
-  { id: 7, opponent: "Thanh Trúc", result: "WIN", score: "21-18, 17-21, 21-19", date: "01/04/2026", location: "Sân Thanh Đa" }
+  { id: 1, opponent: "Lê Minh", result: "THẮNG", score: "21-18, 21-15", date: "Hôm qua", location: "Sân Đào Duy Anh" },
+  { id: 2, opponent: "Trần Hùng", result: "THUA", score: "19-21, 21-17, 18-21", date: "15/04/2026", location: "Sân Kỳ Hòa" },
+  { id: 3, opponent: "Phạm Tuyết", result: "THẮNG", score: "21-10, 21-12", date: "12/04/2026", location: "Sân Hiển Hoa" },
+  { id: 4, opponent: "Hoàng Nam", result: "THẮNG", score: "21-15, 21-12", date: "10/04/2026", location: "Sân T793" },
+  { id: 5, opponent: "Bảo Ngọc", result: "THUA", score: "22-24, 19-21", date: "08/04/2026", location: "Sân Tao Đàn" },
+  { id: 6, opponent: "Quốc Anh", result: "THẮNG", score: "21-9, 21-14", date: "05/04/2026", location: "Sân Hiển Hoa" },
+  { id: 7, opponent: "Thanh Trúc", result: "THẮNG", score: "21-18, 17-21, 21-19", date: "01/04/2026", location: "Sân Thanh Đa" }
 ];
 
 export const ACHIEVEMENTS = [
   { id: 1, title: "Sát thủ sân cỏ", desc: "Thắng 10 trận liên tiếp", icon: "⚔️", unlocked: true },
-  { id: 2, title: "Kẻ thách thức", desc: "Đấu với 5 đối thủ Pro", icon: "🔥", unlocked: true },
+  { id: 2, title: "Kẻ thách thức", desc: "Đấu với 5 đối thủ Chuyên nghiệp", icon: "🔥", unlocked: true },
   { id: 3, title: "Đại gia sân bãi", desc: "Đặt sân hơn 50 lần", icon: "💰", unlocked: false },
   { id: 4, title: "Người kết nối", desc: "Tham gia 20 nhóm giao lưu", icon: "🤝", unlocked: true },
   { id: 5, title: "Legend", desc: "Đạt cấp độ 50", icon: "👑", unlocked: false }
@@ -219,7 +219,7 @@ export const PLAYERS = [
   {
     id: 1,
     name: "Hùng Cầu",
-    level: "Pro",
+    level: "Chuyên nghiệp",
     xp: 920,
     maxXp: 1000,
     rank: 42,
@@ -231,14 +231,14 @@ export const PLAYERS = [
     bio: "Sân nào cũng cân, chỉ cần có kèo!",
     unlockedAchievements: [1, 2, 4],
     recentHistory: [
-      { id: 1, opponent: "Bạn", result: "WIN", score: "21-15, 21-18", date: "Đầu tuần", location: "Sân Đào Duy Anh" },
-      { id: 2, opponent: "Minh Anh", result: "WIN", score: "21-12, 21-10", date: "3 ngày trước", location: "Sân Kỳ Hòa" }
+      { id: 1, opponent: "Bạn", result: "THẮNG", score: "21-15, 21-18", date: "Đầu tuần", location: "Sân Đào Duy Anh" },
+      { id: 2, opponent: "Minh Anh", result: "THẮNG", score: "21-12, 21-10", date: "3 ngày trước", location: "Sân Kỳ Hòa" }
     ]
   },
   {
     id: 2,
     name: "Minh Anh",
-    level: "Intermediate",
+    level: "Trung bình",
     xp: 450,
     maxXp: 1000,
     rank: 215,
@@ -250,14 +250,14 @@ export const PLAYERS = [
     bio: "Giao lưu vui vẻ, rèn luyện sức khỏe.",
     unlockedAchievements: [4],
     recentHistory: [
-      { id: 1, opponent: "Hùng Cầu", result: "LOSS", score: "12-21, 10-21", date: "3 ngày trước", location: "Sân Kỳ Hòa" },
-      { id: 2, opponent: "Tuyết Nhi", result: "WIN", score: "21-19, 21-17", date: "Tuần trước", location: "Sân Tao Đàn" }
+      { id: 1, opponent: "Hùng Cầu", result: "THUA", score: "12-21, 10-21", date: "3 ngày trước", location: "Sân Kỳ Hòa" },
+      { id: 2, opponent: "Tuyết Nhi", result: "THẮNG", score: "21-19, 21-17", date: "Tuần trước", location: "Sân Tao Đàn" }
     ]
   },
   {
     id: 3,
     name: "Tuyết Nhi",
-    level: "Advanced",
+    level: "Khá",
     xp: 780,
     maxXp: 1000,
     rank: 108,

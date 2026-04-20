@@ -15,7 +15,7 @@ const MatchHistory = ({ onBack }) => (
       {MATCH_HISTORY.map(match => (
         <div key={match.id} className="glass-card" style={{ marginBottom: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <span style={{ color: match.result === 'WIN' ? '#c3ff00' : '#ff4444', fontWeight: 800 }}>{match.result}</span>
+            <span style={{ color: match.result === 'THẮNG' ? '#c3ff00' : '#ff4444', fontWeight: 800 }}>{match.result}</span>
             <span className="muted">{match.date}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

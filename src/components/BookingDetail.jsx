@@ -85,7 +85,7 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
 
         <div className="section-title mt-20">
           <h3>Khung giờ trống</h3>
-          <span className="muted">Peak hour = 120k</span>
+          <span className="muted">Giờ cao điểm = 120k</span>
         </div>
 
         <div className="time-grid">
@@ -125,7 +125,7 @@ const BookingDetail = ({ court, relatedMatches, onBack, onConfirm, onJoinMatch, 
       <div className="booking-footer" style={{ position: 'relative', flexShrink: 0 }}>
         <div className="checkout-info">
           <div>
-            <span className="muted">{selectedSlots.length} slot đã chọn</span>
+            <span className="muted">{selectedSlots.length} chỗ đã chọn</span>
             <div className="total-val">{totalPrice}k VND</div>
           </div>
           <button 

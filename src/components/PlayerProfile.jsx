@@ -32,13 +32,13 @@ const PlayerProfile = ({ player, onBack }) => {
               padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: '900',
               boxShadow: '0 4px 10px rgba(0,0,0,0.5)', whiteSpace: 'nowrap'
             }}>
-              LEVEL {Math.floor(player.xp / 100) + 5}
+              CẤP ĐỘ {Math.floor(player.xp / 100) + 5}
             </div>
           </div>
           <h2 style={{ fontSize: '2rem', marginTop: '20px', marginBottom: '5px' }}>{player.name}</h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', fontSize: '0.9rem', fontWeight: 'bold' }}>
             <Shield size={16} />
-            <span>{player.level} Player</span>
+            <span>Cấp độ {player.level}</span>
           </div>
           <p className="muted" style={{ fontStyle: 'italic', marginTop: '10px' }}>"{player.bio}"</p>
         </div>
@@ -60,7 +60,7 @@ const PlayerProfile = ({ player, onBack }) => {
             <div className="stat-value neon-text">#{player.rank}</div>
           </div>
           <div className="glass-card stat-box">
-            <p className="muted">Win rate</p>
+            <p className="muted">Tỷ lệ thắng</p>
             <div className="stat-value">{player.winRate}</div>
           </div>
           <div className="glass-card stat-box">
@@ -112,7 +112,7 @@ const PlayerProfile = ({ player, onBack }) => {
             <div key={match.id} className="glass-card" style={{ marginBottom: '12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span style={{ color: match.result === 'WIN' ? 'var(--primary)' : '#ff4444', fontWeight: 900, fontSize: '0.8rem' }}>
-                  {match.result === 'WIN' ? 'CHIẾN THẮNG' : 'THẤT BẠI'}
+                  {match.result === 'THẮNG' ? 'CHIẾN THẮNG' : 'THẤT BẠI'}
                 </span>
                 <span className="muted" style={{ fontSize: '0.75rem' }}>{match.date}</span>
               </div>
