@@ -1281,3 +1281,73 @@ h1, h2, h3 {
   background: #ff4444;
   color: white;
 }
+
+/* Custom Level Slider Styles */
+.level-slider-container {
+  padding: 10px 5px;
+}
+
+.level-label-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.level-value-text {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(195, 255, 0, 0.4);
+}
+
+.custom-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  outline: none;
+  margin: 10px 0;
+}
+
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(195, 255, 0, 0.6);
+  border: 4px solid var(--bg-dark);
+}
+
+.custom-range:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.custom-range:disabled::-webkit-slider-thumb {
+  background: #555;
+  box-shadow: none;
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-top: 5px;
+}
+
+.tick {
+  width: 2px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.tick.active {
+  background: var(--primary);
+  box-shadow: 0 0 5px var(--primary);
+}

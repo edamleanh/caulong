@@ -6,7 +6,7 @@ const CreateMatchModal = ({ onBack, onCreate, courts }) => {
     title: '',
     location: '',
     courtId: null,
-    level: 'Intermediate',
+    level: 'Trung bình',
     time: '18:00 - 20:00',
     date: 'Hôm nay',
     organizer: 'Bạn',
@@ -147,20 +147,48 @@ const CreateMatchModal = ({ onBack, onCreate, courts }) => {
           </div>
 
           <div className="mb-20">
-            <label className="muted" style={{ display: 'block', marginBottom: '8px' }}>Trình độ mong muốn</label>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              {['Beginner', 'Intermediate', 'Pro'].map(lvl => (
-                <button
-                  key={lvl}
-                  type="button"
-                  className={`chip ${formData.level === lvl ? 'active' : ''}`}
-                  onClick={() => setFormData({...formData, level: lvl})}
-                  style={{ flex: 1, padding: '10px' }}
-                >
-                  {lvl}
-                </button>
-              ))}
+            <div className="level-label-display">
+              <label className="muted">Trình độ mong muốn</label>
+              <div className="level-value-text">
+                {formData.level}
+              </div>
             </div>
+
+            <div className="glass-card level-slider-container">
+              <input 
+                type="range" 
+                min="0" 
+                max="7" 
+                step="1"
+                className="custom-range"
+                value={['Newbie', 'Yếu', 'Trung bình yếu', 'Trung bình', 'Trung bình khá', 'Khá', 'Giỏi', 'Bán chuyên'].indexOf(formData.level) === -1 ? 3 : ['Newbie', 'Yếu', 'Trung bình yếu', 'Trung bình', 'Trung bình khá', 'Khá', 'Giỏi', 'Bán chuyên'].indexOf(formData.level)}
+                onChange={(e) => {
+                  const levels = ['Newbie', 'Yếu', 'Trung bình yếu', 'Trung bình', 'Trung bình khá', 'Khá', 'Giỏi', 'Bán chuyên'];
+                  setFormData({...formData, level: levels[parseInt(e.target.value)]});
+                }}
+              />
+              <div className="slider-ticks">
+                {[0, 1, 2, 3, 4, 5, 6, 7].map(idx => (
+                  <div key={idx} className={`tick ${['Newbie', 'Yếu', 'Trung bình yếu', 'Trung bình', 'Trung bình khá', 'Khá', 'Giỏi', 'Bán chuyên'].indexOf(formData.level) === idx ? 'active' : ''}`}></div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px', fontSize: '0.65rem' }} className="muted">
+                <span>Newbie</span>
+                <span>Bán chuyên</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className={`chip mt-15 ${formData.level === 'Mọi trình độ' ? 'active' : ''}`}
+              onClick={() => {
+                const isCurrentlyAll = formData.level === 'Mọi trình độ';
+                setFormData({...formData, level: isCurrentlyAll ? 'Trung bình' : 'Mọi trình độ'});
+              }}
+              style={{ width: '100%', padding: '12px', textAlign: 'center' }}
+            >
+              Mọi trình độ
+            </button>
           </div>
 
           <div className="mb-20">
