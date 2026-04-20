@@ -1203,3 +1203,81 @@ h1, h2, h3 {
   border-radius: 10px;
   margin: -15px auto 20px;
 }
+
+/* Debt Management Styles */
+.tab-toggle-container {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 4px;
+  margin: 15px 0 25px;
+  border: 1px solid var(--glass-border);
+}
+
+.tab-toggle-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-toggle-btn.active {
+  background: var(--primary);
+  color: black;
+  box-shadow: 0 4px 15px rgba(195, 255, 0, 0.3);
+}
+
+.debt-card {
+  background: var(--glass);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s;
+}
+
+.debt-card:hover {
+  border-color: rgba(255, 68, 68, 0.4);
+  transform: translateY(-2px);
+}
+
+.debt-info {
+  flex: 1;
+}
+
+.debt-amount {
+  color: #ff4444;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.debt-reason {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.remind-btn {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  border: 1px solid rgba(255, 68, 68, 0.2);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.remind-btn:hover {
+  background: #ff4444;
+  color: white;
+}

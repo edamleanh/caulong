@@ -3,7 +3,7 @@ import './index.css';
 import { Search, Trophy, Wallet, User as UserIcon, MapPin, Star, Calendar, Clock, CreditCard, ChevronRight, Plus, Menu, Crosshair, SlidersHorizontal, Map as MapIcon, CheckCircle, Zap, Rocket, History, Shield, Users, X } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { COURTS, MATCHES, USER_STATS, TRANSACTIONS, PLAYERS, MATCH_HISTORY } from './data/mockData';
+import { COURTS, MATCHES, USER_STATS, TRANSACTIONS, PLAYERS, MATCH_HISTORY, GROUP_DEBTS } from './data/mockData';
 import BookingDetail from './components/BookingDetail';
 import { MatchHistory, Achievements, SettingsPage } from './components/ProfileSubScreens';
 import MatchDetail from './components/MatchDetail';
@@ -329,63 +329,112 @@ const Matchmaking = ({ matches, onJoin, onSelect, onCreateClick, joinedIds }) =>
   </div>
 );
 
-const GroupWallet = ({ balance, transactions, onDeposit, onOpenDeposit, onOpenSplit }) => (
-  <div className="screen-content">
-    <h1 className="neon-text">Ví Nhóm</h1>
-    
-    <div className="glass-card balance-card neon-border">
-      <p className="muted">Số dư hiện tại</p>
-      <div className="balance-amount">{balance.toLocaleString()}đ</div>
-      <div className="balance-actions">
-        <button className="btn-primary" style={{ padding: '12px 30px' }} onClick={onOpenDeposit}>
-          <Plus size={20} /> Nạp tiền
+const GroupWallet = ({ balance, transactions, debts, onDeposit, onOpenDeposit, onOpenSplit, activeTab, onTabChange }) => {
+  const totalDebts = debts.reduce((acc, curr) => acc + curr.amount, 0);
+
+  const aggregatedDebts = React.useMemo(() => {
+    const groups = {};
+    debts.forEach(d => {
+      if (!groups[d.name]) {
+        groups[d.name] = { ...d, reasons: [d.reason] };
+      } else {
+        groups[d.name].amount += d.amount;
+        if (!groups[d.name].reasons.includes(d.reason)) {
+          groups[d.name].reasons.push(d.reason);
+        }
+      }
+    });
+    return Object.values(groups);
+  }, [debts]);
+
+  return (
+    <div className="screen-content">
+      <h1 className="neon-text">Ví Nhóm</h1>
+      
+      <div className="glass-card balance-card neon-border">
+        <p className="muted">Số dư hiện tại</p>
+        <div className="balance-amount">{balance.toLocaleString()}đ</div>
+        <div className="balance-actions">
+          <button className="btn-primary" style={{ padding: '12px 30px' }} onClick={onOpenDeposit}>
+            <Plus size={20} /> Nạp tiền
+          </button>
+        </div>
+      </div>
+
+      <div className="tab-toggle-container">
+        <button 
+          className={`tab-toggle-btn ${activeTab === 'history' ? 'active' : ''}`}
+          onClick={() => onTabChange('history')}
+        >
+          Lịch sử
+        </button>
+        <button 
+          className={`tab-toggle-btn ${activeTab === 'debts' ? 'active' : ''}`}
+          onClick={() => onTabChange('debts')}
+        >
+          Nợ quỹ
         </button>
       </div>
-    </div>
 
-    <div className="section-title">
-      <h2>Lịch sử giao dịch</h2>
-    </div>
-
-    <div style={{ maxHeight: '400px', overflowY: 'auto', paddingBottom: '20px' }}>
-      {transactions.map(tx => (
-        <div key={tx.id} className="tx-item-container" style={{ marginBottom: '10px' }}>
-          <div className="tx-item">
-            <div className="tx-icon">
-              {tx.type === 'deposit' ? <Plus color="#c3ff00" /> : <CreditCard color="#ff4444" />}
+      {activeTab === 'history' ? (
+        <div style={{ maxHeight: '450px', overflowY: 'auto', paddingBottom: '20px' }}>
+          {transactions.map(tx => (
+            <div key={tx.id} className="tx-item-container" style={{ marginBottom: '10px' }}>
+              <div className="tx-item">
+                <div className="tx-icon">
+                  {tx.type === 'deposit' ? <Plus color="#c3ff00" /> : <CreditCard color="#ff4444" />}
+                </div>
+                <div className="tx-info">
+                  <h4>{tx.title}</h4>
+                  <p className="muted">{tx.date}</p>
+                </div>
+                <div className={`tx-amount ${tx.type === 'deposit' ? 'positive' : 'negative'}`}>
+                  {tx.amount}
+                </div>
+              </div>
+              {tx.type === 'payment' && (
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '-5px', padding: '0 16px 12px' }}>
+                   <button 
+                     className="chip" 
+                     style={{ fontSize: '0.7rem', padding: '4px 12px', border: '1px solid var(--primary)', color: 'var(--primary)' }}
+                     onClick={() => onOpenSplit(tx)}
+                   >
+                     <Users size={12} style={{ marginRight: '4px' }} /> Chia tiền
+                   </button>
+                </div>
+              )}
             </div>
-            <div className="tx-info">
-              <h4>{tx.title}</h4>
-              <p className="muted">{tx.date}</p>
+          ))}
+          
+          <div className="glass-card qr-card mt-20">
+            <p className="textAlign-center">Mã QR nạp tiền nhanh</p>
+            <div className="qr-placeholder">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=KineticCourtWallet" alt="QR Code" />
             </div>
-            <div className={`tx-amount ${tx.type === 'deposit' ? 'positive' : 'negative'}`}>
-              {tx.amount}
-            </div>
+            <p className="muted textAlign-center">Quét để nạp tiền vào quỹ nhóm</p>
           </div>
-          {tx.type === 'payment' && (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '-5px', padding: '0 16px 12px' }}>
-               <button 
-                 className="chip" 
-                 style={{ fontSize: '0.7rem', padding: '4px 12px', border: '1px solid var(--primary)', color: 'var(--primary)' }}
-                 onClick={() => onOpenSplit(tx)}
-               >
-                 <Users size={12} style={{ marginRight: '4px' }} /> Chia tiền
-               </button>
-            </div>
-          )}
         </div>
-      ))}
+      ) : (
+        <div style={{ maxHeight: '450px', overflowY: 'auto', paddingBottom: '20px' }}>
+          {aggregatedDebts.map(debt => (
+            <div key={debt.name} className="debt-card">
+              <img src={debt.avatar} alt={debt.name} style={{ width: 45, height: 45, borderRadius: '12px' }} />
+              <div className="debt-info">
+                <h4 style={{ margin: 0 }}>{debt.name}</h4>
+                <div className="debt-amount">-{debt.amount.toLocaleString()}đ</div>
+                <div className="debt-reason">{debt.reasons.join(', ')}</div>
+              </div>
+              <button className="remind-btn" onClick={() => alert(`Đã gửi tin nhắn nhắc nợ tới ${debt.name}!`)}>Nhắc nợ</button>
+            </div>
+          ))}
+          <div className="glass-card mt-20" style={{ padding: '15px', textAlign: 'center' }}>
+            <p className="muted" style={{ fontSize: '0.85rem' }}>Tổng số nợ cần thu: <strong style={{ color: '#ff4444' }}>{totalDebts.toLocaleString()}đ</strong></p>
+          </div>
+        </div>
+      )}
     </div>
-
-    <div className="glass-card qr-card mt-20">
-      <p className="textAlign-center">Mã QR nạp tiền nhanh</p>
-      <div className="qr-placeholder">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=KineticCourtWallet" alt="QR Code" />
-      </div>
-      <p className="muted textAlign-center">Quét để nạp tiền vào quỹ nhóm</p>
-    </div>
-  </div>
-);
+  );
+};
 
 const Profile = ({ onMenuClick }) => {
   const progressPercent = (USER_STATS.xp / USER_STATS.maxXp) * 100;
@@ -533,6 +582,8 @@ function App() {
   const [joinedMatches, setJoinedMatches] = useState([]);
   const [balance, setBalance] = useState(450000);
   const [transactions, setTransactions] = useState(TRANSACTIONS);
+  const [walletTab, setWalletTab] = useState('history'); // history, debts
+  const [debtsList, setDebtsList] = useState(GROUP_DEBTS);
   const [toast, setToast] = useState(null);
 
   const handleDeposit = (amount, methodName) => {
@@ -564,7 +615,17 @@ function App() {
       setBalance(prev => prev - extraFee);
     }
 
-    setToast(`Đã ghi nhận phí và gửi yêu cầu tới ${members.length} người!`);
+    // Add new debts
+    const newDebts = members.map((player, index) => ({
+      id: Date.now() + index,
+      name: player.name,
+      amount: amountPerPerson,
+      reason: `Chia tiền: ${tx.title}`,
+      avatar: player.avatar
+    }));
+
+    setDebtsList(prev => [...newDebts, ...prev]);
+    setToast(`Đã chia tiền và cập nhật nợ cho ${members.length} người!`);
   };
 
   const handleConfirmBooking = (totalPrice) => {
@@ -695,6 +756,9 @@ function App() {
           onDeposit={handleDeposit}
           onOpenDeposit={() => setShowDepositModal(true)}
           onOpenSplit={(tx) => { setActiveTxToSplit(tx); setShowSplitModal(true); }}
+          activeTab={walletTab}
+          onTabChange={setWalletTab}
+          debts={debtsList}
         />
       );
       case 'profile': return <Profile onMenuClick={setProfileSubScreen} />;

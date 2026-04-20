@@ -444,5 +444,27 @@ export const PLAYERS = [
       { id: 1, opponent: "Minh Anh", result: "LOSS", score: "19-21, 17-21", date: "Tuần trước", location: "Sân Tao Đàn" },
       { id: 2, opponent: "Bạn", result: "WIN", score: "21-11, 21-14", date: "10 ngày trước", location: "Sân Phú Thọ" }
     ]
+  },
+  {
+    id: 4,
+    name: "Linh",
+    level: "Trung bình +",
+    xp: 520,
+    maxXp: 1000,
+    rank: 180,
+    matches: 45,
+    winRate: "58%",
+    avatar: "https://ui-avatars.com/api/?name=Linh&background=random&color=white",
+    style: "Lưới",
+    gear: "Yonex Astrox 77 Pro",
+    bio: "Hết mình vì đam mê, không quên đóng quỹ!",
+    unlockedAchievements: [4],
+    recentHistory: []
   }
+];
+
+export const GROUP_DEBTS = [
+  { id: 1, name: "Linh", amount: 150000, reason: "Tiền sân 3 buổi (15/4, 17/4, 19/4)", avatar: "https://ui-avatars.com/api/?name=Linh&background=random&color=white" },
+  { id: 2, name: "Minh Anh", amount: 50000, reason: "Tiền cầu buổi sáng 20/4", avatar: "https://ui-avatars.com/api/?name=MA&background=random&color=white" },
+  { id: 3, name: "Tuyết Nhi", amount: 40000, reason: "Tiền nước buổi 19/4", avatar: "https://ui-avatars.com/api/?name=TN&background=random&color=white" }
 ];
