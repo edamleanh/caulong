@@ -76,7 +76,7 @@ const CreateMatchModal = ({ onBack, onCreate, courts }) => {
             <input 
               type="text" 
               className="search-input-wrapper" 
-              style={{ width: '100%', background: 'var(--accent)', border: 'none', padding: '15px', color: 'white', borderRadius: '12px' }}
+              style={{ width: '100%', background: 'var(--accent)', border: 'none', padding: '15px', color: 'white', borderRadius: '12px', fontSize: '1rem' }}
               placeholder="Nhập tiêu đề..."
               value={formData.title}
               onChange={e => setFormData({...formData, title: e.target.value})}
@@ -88,7 +88,7 @@ const CreateMatchModal = ({ onBack, onCreate, courts }) => {
             <input 
               type="text" 
               className="search-input-wrapper" 
-              style={{ width: '100%', background: 'var(--accent)', border: 'none', padding: '15px', color: 'white', borderRadius: '12px' }}
+              style={{ width: '100%', background: 'var(--accent)', border: 'none', padding: '15px', color: 'white', borderRadius: '12px', fontSize: '1rem' }}
               placeholder="Nhập địa điểm..."
               value={formData.location}
               onChange={e => handleLocationChange(e.target.value)}
