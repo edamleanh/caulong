@@ -51,10 +51,11 @@ const MatchCard = ({ match, onJoin, onSelect, isJoined }) => {
           className={`btn-primary ${isJoined ? 'negative' : ''}`}
           onClick={(e) => { e.stopPropagation(); onJoin(match); }}
           style={{ 
+            flex: 1,
             background: isJoined ? '#ff4444' : 'var(--primary)', 
             color: isJoined ? 'white' : 'black',
             padding: '10px 16px',
-            minWidth: '100px'
+            justifyContent: 'center'
           }}
         >
           {isJoined ? 'Rút lui' : 'Tham gia'}
