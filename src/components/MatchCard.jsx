@@ -39,27 +39,29 @@ const MatchCard = ({ match, onJoin, onSelect, isJoined }) => {
       <div className="match-footer" style={{ gap: '10px' }}>
         <span className="price" style={{ minWidth: '70px' }}>{match.price}</span>
         
-        <button 
-          className="btn-secondary"
-          onClick={(e) => { e.stopPropagation(); onSelect && onSelect(match); }}
-          style={{ flex: 1, justifyContent: 'center', padding: '10px' }}
-        >
-          Chi tiết
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            className="btn-secondary"
+            onClick={(e) => { e.stopPropagation(); onSelect && onSelect(match); }}
+            style={{ justifyContent: 'center', padding: '10px 16px', minWidth: '100px', fontSize: '0.9rem' }}
+          >
+            Chi tiết
+          </button>
 
-        <button 
-          className={`btn-primary ${isJoined ? 'negative' : ''}`}
-          onClick={(e) => { e.stopPropagation(); onJoin(match); }}
-          style={{ 
-            flex: 1,
-            background: isJoined ? '#ff4444' : 'var(--primary)', 
-            color: isJoined ? 'white' : 'black',
-            padding: '10px 16px',
-            justifyContent: 'center'
-          }}
-        >
-          {isJoined ? 'Rút lui' : 'Tham gia'}
-        </button>
+          <button 
+            className={`btn-primary ${isJoined ? 'negative' : ''}`}
+            onClick={(e) => { e.stopPropagation(); onJoin(match); }}
+            style={{ 
+              background: isJoined ? '#ff4444' : 'var(--primary)', 
+              color: isJoined ? 'white' : 'black',
+              padding: '10px 16px',
+              minWidth: '100px',
+              fontSize: '0.9rem'
+            }}
+          >
+            {isJoined ? 'Rút lui' : 'Tham gia'}
+          </button>
+        </div>
       </div>
     </div>
   );

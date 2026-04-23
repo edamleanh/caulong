@@ -30,9 +30,9 @@ const Toast = ({ message, type = 'success', onClose }) => {
 
 const BottomNav = ({ activeTab, setActiveTab }) => {
   const tabs = [
-    { id: 'courts', icon: MapIcon, label: 'Khám phá' },
-    { id: 'community', icon: UserIcon, label: 'Đối đầu' },
-    { id: 'bookings', icon: Wallet, label: 'Ví nhóm' },
+    { id: 'courts', icon: MapIcon, label: 'Đặt sân' },
+    { id: 'community', icon: UserIcon, label: 'Tìm kèo' },
+    { id: 'bookings', icon: Wallet, label: 'Quỹ nhóm' },
     { id: 'profile', icon: UserIcon, label: 'Hồ sơ' },
   ];
 

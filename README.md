@@ -100,3 +100,5 @@ npm run dev
 ---
 
 © 2026 Kinetic Court Project. Made with 🔥 and 🏸.
+
+# full-app
