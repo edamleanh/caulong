@@ -117,7 +117,7 @@ const Courts = ({ onBookCourt }) => {
     const normName = normalize(court.name);
 
     const matchesSearch = normName.includes(normSearch) || normLocation.includes(normSearch);
-    const matchesDistrict = filterDistrict === 'Tất cả' || normLocation.includes(normDistrict);
+    const matchesDistrict = filterDistrict === 'Tất cả' || court.district === filterDistrict;
     
     return matchesSearch && matchesDistrict;
   });
@@ -768,11 +768,14 @@ function App() {
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
-    // Clear all sub-screens when switching tabs
+    // Auto-close overlays on tab change
     setBookingCourt(null);
-    setProfileSubScreen(null);
-    setActiveMatchDetail(null);
     setShowCreateMatch(false);
+    setActiveMatchDetail(null);
+    setProfileSubScreen(null);
+    setViewingPlayer(null);
+    setShowDepositModal(false);
+    setShowSplitModal(false);
   };
 
   return (

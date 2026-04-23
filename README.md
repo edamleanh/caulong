@@ -21,7 +21,7 @@ Chúng tôi sử dụng phong cách **Glassmorphism** (Thiết kế thủy tinh)
 - **Mobile-First Navigation:** Mọi tương tác quan trọng đều được đặt trong tầm với của ngón tay cái, tối ưu hóa cho việc sử dụng bằng một tay.
 - **Bottom Sheets:** Sử dụng bảng trượt từ dưới lên cho các bộ lọc và tìm kiếm, mang lại cảm giác bản địa (native app).
 - **Haptic Animations:** Các hiệu ứng chuyển động mượt mà, phản hồi ngay lập tức cho người dùng khi bấm nút hoặc kéo trượt.
-- **Safe Area Support:** Đảm bảo hiển thị hoàn hảo trên các dòng iPhone có tai thỏ hoặc Android có thanh điều hướng dưới.
+- **Safe Area Support:** Đảm bảo hiển thị hoàn hảo trên các dòng iPhone có tai thỏ hoặc Android có thanh đ                                                                                  q\ưqqiều hướng dưới.
 
 ---
 
@@ -45,7 +45,7 @@ Chúng tôi sử dụng phong cách **Glassmorphism** (Thiết kế thủy tinh)
     - Tự động tạo hồ sơ nợ khi hoàn tất chia tiền.
     - **Cơ chế Gộp nợ (Aggregation):** Tự động cộng dồn các khoản nợ của cùng một người thành một mục duy nhất để dễ theo dõi.
     - Tính năng **"Nhắc nợ"** một chạm.
-
+1
 ### 👤 4. Player Analytics & Progression
 - **Hệ thống Gamification:** Tích lũy XP (Kinh nghiệm) qua từng trận đấu để tăng cấp độ (Tier).
 - **Chỉ số Người chơi:** Theo dõi số trận đã đấu, tỷ lệ thắng (Win Rate) và lịch sử tham gia.

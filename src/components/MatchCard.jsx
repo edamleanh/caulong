@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Clock, User as UserIcon, MapPin } from 'lucide-react';
+import { Calendar, Clock, User as UserIcon, MapPin, ChevronRight } from 'lucide-react';
 
 const MatchCard = ({ match, onJoin, onSelect, isJoined }) => {
   return (
@@ -36,12 +36,26 @@ const MatchCard = ({ match, onJoin, onSelect, isJoined }) => {
           <span>{isJoined ? 4 : match.slots.split('/')[0]} / {match.slots.split('/')[1]} chỗ</span>
         </div>
       </div>
-      <div className="match-footer">
-        <span className="price">{match.price}</span>
+      <div className="match-footer" style={{ gap: '10px' }}>
+        <span className="price" style={{ minWidth: '70px' }}>{match.price}</span>
+        
+        <button 
+          className="btn-secondary"
+          onClick={(e) => { e.stopPropagation(); onSelect && onSelect(match); }}
+          style={{ flex: 1, justifyContent: 'center', padding: '10px' }}
+        >
+          Chi tiết
+        </button>
+
         <button 
           className={`btn-primary ${isJoined ? 'negative' : ''}`}
           onClick={(e) => { e.stopPropagation(); onJoin(match); }}
-          style={{ background: isJoined ? '#ff4444' : 'var(--primary)', color: isJoined ? 'white' : 'black' }}
+          style={{ 
+            background: isJoined ? '#ff4444' : 'var(--primary)', 
+            color: isJoined ? 'white' : 'black',
+            padding: '10px 16px',
+            minWidth: '100px'
+          }}
         >
           {isJoined ? 'Rút lui' : 'Tham gia'}
         </button>

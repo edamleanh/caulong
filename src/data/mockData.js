@@ -9,7 +9,8 @@ export const COURTS = [
     image: "/images/court1.jpg",
     tags: ["Cao cấp", "Sân thảm", "Căng tin"],
     lat: 10.8009,
-    lng: 106.6781
+    lng: 106.6781,
+    district: "Phú Nhuận"
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ export const COURTS = [
     image: "/images/court2.jpg",
     tags: ["Thoáng mát", "Số lượng sân lớn"],
     lat: 10.7928,
-    lng: 106.7214
+    lng: 106.7214,
+    district: "Quận 2"
   },
   {
     id: 3,
@@ -33,7 +35,8 @@ export const COURTS = [
     image: "/images/court3.jpg",
     tags: ["Trung tâm", "Thi đấu chuẩn"],
     lat: 10.7761,
-    lng: 106.6713
+    lng: 106.6713,
+    district: "Quận 10"
   },
   {
     id: 4,
@@ -45,7 +48,8 @@ export const COURTS = [
     image: "/images/court2.jpg",
     tags: ["Giá rẻ", "Sân thảm"],
     lat: 10.7381,
-    lng: 106.7022
+    lng: 106.7022,
+    district: "Quận 7"
   },
   {
     id: 5,
@@ -57,7 +61,8 @@ export const COURTS = [
     image: "/images/court1.jpg",
     tags: ["Mới khai trương", "Dịch vụ tốt"],
     lat: 10.8143,
-    lng: 106.6976
+    lng: 106.6976,
+    district: "Bình Thạnh"
   },
   {
     id: 6,
@@ -69,7 +74,8 @@ export const COURTS = [
     image: "/images/court6.jpg",
     tags: ["Sân chuẩn", "Trung tâm Q1"],
     lat: 10.7758,
-    lng: 106.6923
+    lng: 106.6923,
+    district: "Quận 1"
   },
   {
     id: 7,
@@ -81,7 +87,8 @@ export const COURTS = [
     image: "/images/court7.jpg",
     tags: ["An ninh", "Rộng rãi"],
     lat: 10.7634,
-    lng: 106.6826
+    lng: 106.6826,
+    district: "Quận 1"
   },
   {
     id: 8,
@@ -93,7 +100,8 @@ export const COURTS = [
     image: "/images/court3.jpg",
     tags: ["Thoáng mát", "8 sân chuẩn"],
     lat: 10.8351,
-    lng: 106.6775
+    lng: 106.6775,
+    district: "Gò Vấp"
   },
   {
     id: 9,
